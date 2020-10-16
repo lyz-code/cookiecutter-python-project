@@ -1,0 +1,18 @@
+-r requirements.txt
+
+# Testing
+pytest
+pytest-cov
+pytest-cookies
+
+# Linting
+yamllint
+
+# Security
+pip-tools
+
+# Code quality
+pre-commit
+black
+isort
+flake8

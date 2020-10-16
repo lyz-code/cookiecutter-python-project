@@ -1,0 +1,53 @@
+[tool.commitizen]
+name = "cz_conventional_commits"
+version = "0.0.1"
+tag_format = "$version"
+
+[tool.black]
+line-length = 88
+target-version = ['py36', 'py37', 'py38']
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | _build
+  | buck-out
+  | build
+  | dist
+  # The following are specific to Black, you probably don't want those.
+  | blib2to3
+  | tests/data
+  | profiling
+)/
+'''
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "-vv --tb=short"
+python_paths = "."
+norecursedirs = [
+    ".tox",
+    ".git",
+    "*/migrations/*",
+    "*/static/*",
+    "docs",
+    "venv",
+    "*/{{cookiecutter.project_name}}/*"
+]
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+    "secondary: mark tests that use functionality tested in the same file (deselect with '-m \"not secondary\"')"
+]
+
+[tool.isort]
+profile = "black"
+src_paths = ["src", "test"]
+
+[build-system]
+requires = ["setuptools >= 40.6.0", "wheel"]
+build-backend = "setuptools.build_meta"

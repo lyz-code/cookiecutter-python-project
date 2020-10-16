@@ -1,0 +1,20 @@
+-r requirements.txt
+-r docs/requirements.in
+
+# Testing
+pytest
+pytest-cov
+pytest-pythonpath
+
+# Linting
+yamllint
+
+# Security
+pip-tools
+
+# Code quality
+pre-commit
+black
+isort
+flake8
+mypy
