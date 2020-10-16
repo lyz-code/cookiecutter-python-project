@@ -16,13 +16,6 @@ on:  # yamllint disable-line rule:truthy
       - '!gh-pages' # excludes gh-pages
 
 jobs:
-  Black:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
-      - name: Black
-        uses: psf/black@stable
   Safety:
     runs-on: ubuntu-latest
     steps:
@@ -35,31 +28,18 @@ jobs:
         run: pip install safety
       - name: Execute safety
         run: safety check
-  Bandit:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
-        with:
-          python-version: 3.7
-      - name: Install dependencies
-        run: pip install bandit
-      - name: Execute bandit
-        run: bandit -r project
   Pytest:
     runs-on: ubuntu-latest
     strategy:
       max-parallel: 3
       matrix:
         python-version: [3.6, 3.7, 3.8]
-
     steps:
       - uses: actions/checkout@v1
-      - name: Set up Python {% raw %}${{ matrix.python-version }}{% endraw %}
+      - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v1
         with:
-          python-version: {% raw %}${{ matrix.python-version }}{% endraw %}
+          python-version: ${{ matrix.python-version }}
       - name: Install dependencies
         run: |
           make install
@@ -72,26 +52,6 @@ jobs:
       - name: Test with pytest
         run: |
           make tests
-      - name: Upload Coverage
-        run: |
-          pip3 install coveralls
-          coveralls
-        env:
-          GITHUB_TOKEN: {% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}
-          COVERALLS_FLAG_NAME: {% raw %}${{ matrix.test-name }}{% endraw %}
-          COVERALLS_PARALLEL: true
-  Coveralls:
-    name: Finish Coveralls
-    needs: Pytest
-    runs-on: ubuntu-latest
-    container: python:3-slim
-    steps:
-      - name: Finished
-        run: |
-          pip3 install coveralls
-          coveralls --finish
-        env:
-          GITHUB_TOKEN: {% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}
   Documentation:
     runs-on: ubuntu-18.04
     steps:
@@ -109,26 +69,3 @@ jobs:
       - name: Build the Documentation
         run: |
           mkdocs build
-  Python_Package:
-    name: Build the Python package
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@master
-      - name: Set up Python 3.7
-        uses: actions/setup-python@v1
-        with:
-          python-version: 3.7
-      - name: Install PEP517
-        run: >-
-          python -m
-          pip install
-          pep517
-          --user
-      - name: Build a binary wheel and a source tarball
-        run: >-
-          python -m
-          pep517.build
-          --source
-          --binary
-          --out-dir dist/
-          .
