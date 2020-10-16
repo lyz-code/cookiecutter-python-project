@@ -39,7 +39,7 @@ lint:
 	@echo "- Testing the lint -"
 	@echo "--------------------"
 
-	flake8 src/ tests/
+	flakehell lint src/ tests/
 	$(isort) --check-only --df
 	$(black) --check --diff
 
@@ -55,8 +55,8 @@ mypy:
 
 	@echo ""
 
-.PHONY: test-code
-test: test-code test-examples
+.PHONY: tests
+tests: test-code test-examples
 
 .PHONY: test-code
 test-code:
@@ -78,13 +78,8 @@ test-examples:
 
 	@echo ""
 
-.PHONY: testcov
-testcov: test
-	@echo "building coverage html"
-	@coverage html
-
 .PHONY: all
-all: lint mypy test
+all: lint mypy tests security
 
 .PHONY: clean
 clean:
@@ -137,3 +132,15 @@ build-docs: test-examples
 .PHONY: version
 version:
 	@python -c "import repository_pattern.version; print(repository_pattern.version.version_info())"
+
+.PHONY: security
+security:
+	@echo "--------------------"
+	@echo "- Testing security -"
+	@echo "--------------------"
+
+	safety check
+	@echo ""
+	bandit -r src
+
+	@echo ""

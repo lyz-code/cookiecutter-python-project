@@ -12,7 +12,7 @@ Features:
 * Configure the virtualenv and install the development requirements.
 * Configure the [pre-commit](https://github.com/pre-commit/pre-commit) and
     Github CI checks of [Black](https://black.readthedocs.io/en/stable/),
-    [Flake8](https://flake8.pycqa.org/), [Mypy](http://mypy-lang.org/),
+    [Flakehell](https://github.com/life4/flakehell), [Mypy](http://mypy-lang.org/),
     [Bandit](https://bandit.readthedocs.io/en/latest/),
     [Safety](https://github.com/pyupio/safety).
 * Configure Pytest.

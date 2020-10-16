@@ -45,7 +45,7 @@ def get(
 def initialize_git_repository() -> None:
     print("* Initializing the project git repository")
 
-    if ".git " not in sh.ls("-a"):
+    if ".git\t" not in sh.ls("-a"):
         try:
             git.init()
             git.remote(
