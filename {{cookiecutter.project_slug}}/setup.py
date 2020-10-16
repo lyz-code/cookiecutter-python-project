@@ -1,3 +1,5 @@
+"""Python package building configuration."""
+
 from glob import glob
 from os.path import basename, splitext
 from typing import Dict
