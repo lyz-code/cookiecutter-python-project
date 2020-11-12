@@ -1,12 +1,12 @@
+SHELL=/bin/bash
 .DEFAULT_GOAL := all
-isort = isort src docs/examples tests
-black = black --target-version py37 src docs/examples tests
+isort = isort hooks tests setup.py
+black = black --target-version py37 hooks tests setup.py
 
 .PHONY: install
 install:
 	python -m pip install -U setuptools pip
 	pip install -r requirements-dev.txt
-	pip install -e .
 	pre-commit install
 
 .PHONY: update
@@ -16,8 +16,8 @@ update:
 	@echo "-------------------------"
 
 	pip-compile -U --allow-unsafe
-	pip-compile -U --allow-unsafe requirements-dev.in --output-file requirements-dev.txt
 	pip-compile -U --allow-unsafe docs/requirements.in --output-file docs/requirements.txt
+	pip-compile -U --allow-unsafe requirements-dev.in --output-file requirements-dev.txt
 	pip install -r requirements-dev.txt
 
 	@echo ""
@@ -39,7 +39,7 @@ lint:
 	@echo "- Testing the lint -"
 	@echo "--------------------"
 
-	flakehell lint src/ tests/
+	flakehell lint hooks/ tests/
 	$(isort) --check-only --df
 	$(black) --check --diff
 
@@ -51,12 +51,12 @@ mypy:
 	@echo "- Testing mypy -"
 	@echo "----------------"
 
-	mypy src
+	mypy hooks tests
 
 	@echo ""
 
 .PHONY: test
-test: test-code test-examples
+test: test-code
 
 .PHONY: test-code
 test-code:
@@ -64,17 +64,7 @@ test-code:
 	@echo "- Testing code -"
 	@echo "----------------"
 
-	pytest --cov-report term-missing --cov src tests
-
-	@echo ""
-
-.PHONY: test-examples
-test-examples:
-	@echo "--------------------"
-	@echo "- Testing examples -"
-	@echo "--------------------"
-
-	@find docs/examples -type f -name '*.py' | xargs -I'{}' sh -c 'python {} >/dev/null 2>&1 || (echo "{} failed" ; exit 1)'
+	pytest tests ${ARGS}
 
 	@echo ""
 
@@ -111,7 +101,7 @@ clean:
 	@echo ""
 
 .PHONY: docs
-docs: test-examples
+docs:
 	@echo "-------------------------"
 	@echo "- Serving documentation -"
 	@echo "-------------------------"
@@ -121,7 +111,7 @@ docs: test-examples
 	@echo ""
 
 .PHONY: build-docs
-build-docs: test-examples
+build-docs:
 	@echo "--------------------------"
 	@echo "- Building documentation -"
 	@echo "--------------------------"
@@ -141,6 +131,6 @@ security:
 
 	safety check
 	@echo ""
-	bandit -r src
+	bandit -r hooks
 
 	@echo ""

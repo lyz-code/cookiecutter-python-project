@@ -1,8 +1,11 @@
 """Python package building configuration."""
 
-from setuptools import setup
+from glob import glob
+from os.path import basename, splitext
 
-__version__: str = "0.1.0"
+from setuptools import find_packages, setup
+
+__version__ = "0.1.0"
 
 setup(
     name="cookiecutter-python-project",
@@ -14,6 +17,9 @@ setup(
     long_description=open("README.md").read(),
     long_description_content_type="text/markdown",
     url="https://github.com/lyz-code/cookiecutter-python-project",
+    packages=find_packages("src"),
+    package_dir={"": "src"},
+    py_modules=[splitext(basename(path))[0] for path in glob("src/*.py")],
     python_requires=">=3.6",
     classifiers=[
         "Development Status :: 2 - Pre-Alpha",
@@ -30,11 +36,9 @@ setup(
         "Natural Language :: English",
     ],
     install_requires=[
+        "arrow<0.14.0",  # https://github.com/hackebrot/pytest-cookies/issues/50
         "cookiecutter",
-        # https://github.com/hackebrot/pytest-cookies/issues/50
-        "arrow<0.14.0",
+        "cryptography",
         "sh",
-        "passpy",
-        "pynacl",
     ],
 )

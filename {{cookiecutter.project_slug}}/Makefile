@@ -1,6 +1,6 @@
 .DEFAULT_GOAL := all
-isort = isort src docs/examples tests
-black = black --target-version py37 src docs/examples tests
+isort = isort src docs/examples tests setup.py
+black = black --target-version py37 src docs/examples tests setup.py
 
 .PHONY: install
 install:
@@ -16,8 +16,8 @@ update:
 	@echo "-------------------------"
 
 	pip-compile -U --allow-unsafe
-	pip-compile -U --allow-unsafe requirements-dev.in --output-file requirements-dev.txt
 	pip-compile -U --allow-unsafe docs/requirements.in --output-file docs/requirements.txt
+	pip-compile -U --allow-unsafe requirements-dev.in --output-file requirements-dev.txt
 	pip install -r requirements-dev.txt
 
 	@echo ""
@@ -39,7 +39,7 @@ lint:
 	@echo "- Testing the lint -"
 	@echo "--------------------"
 
-	flakehell lint src/ tests/
+	flakehell lint src/ tests/ setup.py
 	$(isort) --check-only --df
 	$(black) --check --diff
 
@@ -51,7 +51,7 @@ mypy:
 	@echo "- Testing mypy -"
 	@echo "----------------"
 
-	mypy src
+	mypy src tests
 
 	@echo ""
 
@@ -64,7 +64,7 @@ test-code:
 	@echo "- Testing code -"
 	@echo "----------------"
 
-	pytest --cov-report term-missing --cov src tests
+	pytest --cov-report term-missing --cov src tests ${ARGS}
 
 	@echo ""
 
@@ -129,10 +129,6 @@ build-docs: test-examples
 	mkdocs build
 	@echo ""
 
-.PHONY: version
-version:
-	@python -c "import repository_pattern.version; print(repository_pattern.version.version_info())"
-
 .PHONY: security
 security:
 	@echo "--------------------"
@@ -144,3 +140,7 @@ security:
 	bandit -r src
 
 	@echo ""
+
+.PHONY: version
+version:
+	@python -c "import {{ cookiecutter.project_slug.replace('-', '_') }}.version; print({{ cookiecutter.project_slug.replace('-', '_') }}.version.version_info())"

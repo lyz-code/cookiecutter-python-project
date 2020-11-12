@@ -1,19 +1,32 @@
+---
 site_name: {{ cookiecutter.project_name }}
 site_author: Lyz
 site_url: https://{{ cookiecutter.github_user }}.github.io/{{ cookiecutter.project_slug }}
 nav:
   - Overview: index.md
+  - Reference: reference.md
   - Contributing: contributing.md
 
 plugins:
   - search
+  - mkdocstrings:
+      handlers:
+        python:
+          rendering:
+            show_root_heading: true
+            heading_level: 1
+      watch:
+        - src
   - autolinks
   - git-revision-date-localized:
       type: timeago
+      fallback_to_build_date: true
   - minify:
       minify_html: true
 
 markdown_extensions:
+  - abbr
+  - def_list
   - admonition
   - markdown_include.include:
       base_path: docs
@@ -34,6 +47,7 @@ markdown_extensions:
   - pymdownx.mark
   - pymdownx.smartsymbols
   - pymdownx.superfences
+  - pymdownx.tabbed
   - pymdownx.tasklist:
       custom_checkbox: true
   - pymdownx.tilde

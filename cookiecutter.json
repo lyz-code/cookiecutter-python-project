@@ -5,8 +5,6 @@
   "requirements": "",
   "github_user": "github-user",
   "github_token_pass_path": "internet/github.api_token",
-  "github_ssh_key_pass_path": "internet/github.actions_ssh_private_key",
-  "github_ssh_public_key_pass_path": "internet/github.actions_ssh_public_key",
   "pypi_token_pass_path": "internet/pypi.token",
   "test_pypi_token_pass_path": "internet/test.pypi.token",
   "author": "Author Name",

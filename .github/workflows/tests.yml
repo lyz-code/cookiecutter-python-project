@@ -16,6 +16,13 @@ on:  # yamllint disable-line rule:truthy
       - '!gh-pages' # excludes gh-pages
 
 jobs:
+  Black:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+      - name: Black
+        uses: psf/black@stable
   Safety:
     runs-on: ubuntu-latest
     steps:
@@ -28,12 +35,25 @@ jobs:
         run: pip install safety
       - name: Execute safety
         run: safety check
+  Bandit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.7
+      - name: Install dependencies
+        run: pip install bandit
+      - name: Execute bandit
+        run: bandit -r hooks
   Pytest:
     runs-on: ubuntu-latest
     strategy:
       max-parallel: 3
       matrix:
         python-version: [3.6, 3.7, 3.8]
+
     steps:
       - uses: actions/checkout@v1
       - name: Set up Python ${{ matrix.python-version }}

@@ -1,6 +1,4 @@
-"""
-Module to store the functions shared by the different adapters.
-"""
+"""Module to store the functions shared by the different adapters."""
 
 import logging
 

@@ -13,11 +13,11 @@ pip install {{ cookiecutter.project_slug }}
 # A Simple Example
 
 ```python
-{! examples/simple-example.py !}
+{! examples/simple-example.py !} # noqa
 ```
 
 # Contributing
 
 For guidance on setting up a development environment and how to make
 a contribution to *{{ cookiecutter.project_slug }}*, see [Contributing to
-{{ cookiecutter.project_slug }}](https://github.io/{{ cookiecutter.github_user}}/{{ cookiecutter.project_slug }}/contributing).
+{{ cookiecutter.project_slug }}](https://{{ cookiecutter.github_user}}.github.io/{{ cookiecutter.project_slug }}/contributing).
