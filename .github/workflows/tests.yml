@@ -8,46 +8,9 @@ on:  # yamllint disable-line rule:truthy
       - '*/*'       # matches every branch containing a single '/'
       - '**'        # matches every branch
       - '!gh-pages' # excludes gh-pages
-  pull_request:
-    branches:
-      - '*'         # matches every branch that doesn't contain a '/'
-      - '*/*'       # matches every branch containing a single '/'
-      - '**'        # matches every branch
-      - '!gh-pages' # excludes gh-pages
 
 jobs:
-  Black:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
-      - name: Black
-        uses: psf/black@stable
-  Safety:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
-        with:
-          python-version: 3.7
-      - name: Install dependencies
-        run: pip install safety
-      - name: Execute safety
-        run: safety check
-  Bandit:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
-        with:
-          python-version: 3.7
-      - name: Install dependencies
-        run: pip install bandit
-      - name: Execute bandit
-        run: bandit -r hooks
-  Pytest:
+  Tests:
     runs-on: ubuntu-latest
     strategy:
       max-parallel: 3
@@ -60,32 +23,19 @@ jobs:
         uses: actions/setup-python@v1
         with:
           python-version: ${{ matrix.python-version }}
+      - name: Set up Node.js
+        uses: actions/setup-node@v1
       - name: Install dependencies
         run: |
           make install
+          npm install -g markdownlint-cli
       - name: Test linters
-        run: |
-          make lint
+        run: make lint
+      - name: Test security
+        run: make security
       - name: Test type checkers
-        run: |
-          make mypy
+        run: make mypy
       - name: Test with pytest
-        run: |
-          make tests
-  Documentation:
-    runs-on: ubuntu-18.04
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          # Number of commits to fetch. 0 indicates all history.
-          # Default: 1
-          fetch-depth: 0
-      - uses: actions/setup-python@v2
-        with:
-          python-version: 3.7
-      - name: Install dependencies
-        run: pip install -r ./docs/requirements.txt
-      - name: Build the Documentation
-        run: |
-          mkdocs build
+        run: make test
+      - name: Test documentation
+        run: make build-docs

@@ -4,12 +4,14 @@ about: Suggest a new feature or change to {{ cookiecutter.project_slug }}
 labels: feature request
 ---
 
-### Checks
+## Description
+<!-- A clear and concise description for us to know your idea. -->
 
-* [ ] I added a descriptive title to this issue.
-* [ ] I have searched (google, github) for similar issues and couldn't find
-    anything.
-* [ ] I have read and followed [the docs](https://{{ cookiecutter.github_user }}.github.io/{{ cookiecutter.project_slug }})
-    and still think this feature/change is needed.
+## Possible Solution
+<!-- A clear and concise description of what you want to happen. -->
 
-# Feature request
+## Additional context
+<!-- Add any other context or screenshots about the feature request here. -->
+
+## Related Issue
+<!-- If applicable, add link to existing issue also help us know better. -->

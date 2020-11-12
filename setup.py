@@ -39,6 +39,8 @@ setup(
         "arrow<0.14.0",  # https://github.com/hackebrot/pytest-cookies/issues/50
         "cookiecutter",
         "cryptography",
+        "passpy",
+        "pynacl",
         "sh",
     ],
 )

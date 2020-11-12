@@ -1,6 +1,6 @@
 {
-  "template": "/home/lyz/projects/cookiecutter-python-project",
-  "commit": "4a29f15bb8960ecf4fc8531ed91a647ee2e91e1f",
+  "template": "https://github.com/lyz-code/cookiecutter-python-project",
+  "commit": "901d181e9f292d2b77fe8923b74404b7e3b4236a",
   "context": {
     "cookiecutter": {
       "project_name": "Cookiecutter Python Project",
@@ -9,14 +9,11 @@
       "requirements": "cookiecutter, arrow, sh",
       "github_user": "lyz-code",
       "github_token_pass_path": "internet/github.lyz-code.api_token",
-      "github_ssh_key_pass_path": "internet/github.lyz-code.deploy_ssh_key",
-      "github_ssh_public_key_pass_path": "internet/github.lyz-code.deploy_ssh_public_key",
       "pypi_token_pass_path": "internet/pypi.token",
       "test_pypi_token_pass_path": "internet/test.pypi.token",
       "author": "Lyz",
       "author_email": "lyz-code-security-advisories@riseup.net",
-      "security_advisories_email": "lyz-code-security-advisories@riseup.net",
-      "_template": "/home/lyz/projects/cookiecutter-python-project"
+      "security_advisories_email": "lyz-code-security-advisories@riseup.net"
     }
   },
   "directory": null

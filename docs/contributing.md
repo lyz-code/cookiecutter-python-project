@@ -19,7 +19,7 @@ It should be extremely simple to get started and create a Pull Request.
 *cookiecutter-python-project* is released regularly so you should see your improvements
 release in a matter of days or weeks.
 
-!!! note
+!!! warning ""
     Unless your change is trivial (typo, docs tweak etc.), please create an
     issue to discuss the change before creating a pull request.
 
@@ -32,8 +32,8 @@ label on github.
 To make contributing as easy and fast as possible, you'll want to run tests and
 linting locally.
 
-!!! note ""
-    **tl;dr**: use `make format` to fix formatting, `make` to run tests and linting & `make docs`
+!!! note "TL;DR"
+    Use `make format` to fix formatting, `make` to run tests and linting & `make docs`
     to build the docs.
 
 You'll need to have python 3.6, 3.7, or 3.8, virtualenv, git, and make installed.
@@ -50,6 +50,12 @@ You'll need to have python 3.6, 3.7, or 3.8, virtualenv, git, and make installed
     ```bash
     virtualenv -p `which python3.7` env
     source env/bin/activate
+    ```
+
+* Install npm dependencies
+
+    ```bash
+    npm install markdownlint-cli
     ```
 
 * Install {{ cookiecutter.project_slug }}, dependencies and configure the
