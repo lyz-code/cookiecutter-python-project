@@ -1,0 +1,20 @@
+{
+  "template": "https://github.com/lyz-code/cookiecutter-python-project",
+  "commit": "901d181e9f292d2b77fe8923b74404b7e3b4236a",
+  "context": {
+    "cookiecutter": {
+      "project_name": "Cookiecutter Python Project",
+      "project_slug": "cookiecutter-python-project",
+      "project_description": "Cookiecutter template to generate python projects following the best practices gathered over the time.",
+      "requirements": "cookiecutter, arrow, sh",
+      "github_user": "lyz-code",
+      "github_token_pass_path": "internet/github.lyz-code.api_token",
+      "pypi_token_pass_path": "internet/pypi.token",
+      "test_pypi_token_pass_path": "internet/test.pypi.token",
+      "author": "Lyz",
+      "author_email": "lyz-code-security-advisories@riseup.net",
+      "security_advisories_email": "lyz-code-security-advisories@riseup.net"
+    }
+  },
+  "directory": null
+}
