@@ -114,6 +114,6 @@ cookiecutter https://github.com/lyz-code/cookiecutter-python-project
 
 # Contributing
 
-For guidance on setting up a development environment and how to make
+For guidance on setting up a development environment, and how to make
 a contribution to *cookiecutter-python-project*, see [Contributing to
 cookiecutter-python-project](https://github.io/lyz-code/cookiecutter-python-project/contributing).

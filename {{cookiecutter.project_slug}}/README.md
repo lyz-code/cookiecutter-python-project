@@ -18,7 +18,7 @@ pip install {{ cookiecutter.project_slug }}
 
 ## Contributing
 
-For guidance on setting up a development environment and how to make
+For guidance on setting up a development environment, and how to make
 a contribution to *{{ cookiecutter.project_slug }}*, see [Contributing to
 {{ cookiecutter.project_slug }}](https://{{ cookiecutter.github_user}}.github.io/{{ cookiecutter.project_slug }}/contributing).
 
