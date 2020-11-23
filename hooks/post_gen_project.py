@@ -46,46 +46,45 @@ def get(
 
 def initialize_git_repository() -> None:
     """Prepare the git repository."""
-    print("* Initializing the project git repository")
+    print("    * Initializing the project git repository")
 
-    if ".git\t" not in sh.ls("-a"):
-        try:
-            git.init()
-            git.remote(
-                "add",
-                "origin",
-                "git@github.com:{{ cookiecutter.github_user }}/"
-                "{{ cookiecutter.project_slug }}.git",
-            )
-            git.add(".")
-            git.commit("-m", "feat: create initial project structure")
-            git.checkout("-b", "gh-pages")
-            git.checkout("-b", "feat/initial_iteration")
+    try:
+        git.init()
+        git.remote(
+            "add",
+            "origin",
+            "git@github.com:{{ cookiecutter.github_user }}/"
+            "{{ cookiecutter.project_slug }}.git",
+        )
+        git.add(".")
+        git.commit("-m", "feat: create initial project structure")
+        git.checkout("-b", "gh-pages")
+        git.checkout("-b", "feat/initial_iteration")
 
-            print("    * Pushing initial changes to master")
-            git.push("--force", "--set-upstream", "origin", "master")
-            git.push("--force", "--set-upstream", "origin", "gh-pages")
-            git.push("--force", "--set-upstream", "origin", "feat/initial_iteration")
-            git.push("--force")
-        except sh.ErrorReturnCode as error:
-            print("There was an error creating the Git repository.")
-            print(str(error.stderr, "utf8"))
-            sys.exit(1)
+        print("    * Pushing initial changes to master")
+        git.push("--force", "--set-upstream", "origin", "master")
+        git.push("--force", "--set-upstream", "origin", "gh-pages")
+        git.push("--force", "--set-upstream", "origin", "feat/initial_iteration")
+        git.push("--force")
+    except sh.ErrorReturnCode as error:
+        print("There was an error creating the Git repository.")
+        print(str(error.stderr, "utf8"))
+        sys.exit(1)
 
 
 def format_code() -> None:
     """Correct source code following the Black style."""
-    print("* Make repository Black linter compliant.")
+    print("    * Make repository Black linter compliant.")
     sh.black("setup.py", "src", "docs/examples", "tests")
 
 
 def initialize_requirement_files() -> None:
     """Generate the python dependencies requirement files."""
-    print("* Generate requirements.txt")
+    print("    * Generate requirements.txt")
     sh.pip_compile("--allow-unsafe")
-    print("    * Generate requirements-dev.txt")
+    print("        * Generate requirements-dev.txt")
     sh.pip_compile("--allow-unsafe", "requirements-dev.in")
-    print("    * Generate docs/requirements.txt")
+    print("        * Generate docs/requirements.txt")
     sh.pip_compile(
         "--allow-unsafe",
         "docs/requirements.in",
@@ -173,6 +172,24 @@ def configure_github_repository(password_store: passpy.Store) -> None:
             sys.exit(1)
 
     _set_github_secrets(github_url, github_token, password_store)
+
+    print("* Check if the repository is initialized")
+    try:
+        repo_commits = get(
+            url=(
+                f"{github_url}/repos/{{ cookiecutter.github_user }}/"
+                "{{ cookiecutter.project_slug }}/commits"
+            ),
+            token=github_token,
+        ).json()
+        if len(repo_commits) < 1:
+            initialize_requirement_files()
+            format_code()
+            initialize_git_repository()
+    except requests.exceptions.HTTPError:
+        initialize_requirement_files()
+        format_code()
+        initialize_git_repository()
 
 
 def _set_github_secrets(
@@ -285,9 +302,6 @@ def main() -> None:
 
     password_store = passpy.Store()
     configure_github_repository(password_store)
-    initialize_requirement_files()
-    format_code()
-    initialize_git_repository()
 
 
 if __name__ == "__main__" and os.environ.get("COOKIECUTTER_TESTING") != "true":
