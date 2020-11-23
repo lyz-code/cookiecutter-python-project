@@ -1,3 +1,9 @@
+## 0.1.1 (2020-11-23)
+
+### Fix
+
+- make post hooks idempotent
+
 ## 0.1.0 (2020-11-13)
 
 ### Fix
