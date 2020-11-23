@@ -1,3 +1,9 @@
+## 0.1.2 (2020-11-23)
+
+### Fix
+
+- remove the ANN101 and R0201 check in the test files
+
 ## 0.1.1 (2020-11-23)
 
 ### Fix
