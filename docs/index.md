@@ -94,7 +94,7 @@ We assume you are comfortable with some tools:
 
 * [cruft](https://lyz-code.github.io/blue-book/linux/cruft) or
     [cookiecutter](https://lyz-code.github.io/blue-book/linux/cookiecutter/) to generate
-    the l
+    the template.
 * [pass](https://www.passwordstore.org/): Used to load the sensitive data such as
     the github credentials.
 * [commitizen](https://commitizen-tools.github.io/commitizen/): Used to bump the version
