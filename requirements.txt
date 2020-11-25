@@ -7,7 +7,7 @@
 arrow==0.13.2             # via cookiecutter-python-project (setup.py), jinja2-time
 binaryornot==0.4.4        # via cookiecutter
 certifi==2020.11.8        # via requests
-cffi==1.14.3              # via cryptography, pynacl
+cffi==1.14.4              # via cryptography, pynacl
 chardet==3.0.4            # via binaryornot, requests
 click==7.1.2              # via cookiecutter, passpy
 cookiecutter==1.7.2       # via cookiecutter-python-project (setup.py)
@@ -31,4 +31,4 @@ sh==1.14.1                # via cookiecutter-python-project (setup.py)
 six==1.15.0               # via cookiecutter, cryptography, pynacl, python-dateutil
 smmap==3.0.4              # via gitdb
 text-unidecode==1.3       # via python-slugify
-urllib3==1.26.1           # via requests
+urllib3==1.26.2           # via requests
