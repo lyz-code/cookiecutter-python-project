@@ -46,3 +46,4 @@ mypy
 autoimport
 black
 isort
+yamlfix
