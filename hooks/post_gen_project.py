@@ -1,6 +1,7 @@
 """Configuration tasks to be run after the template has been generated."""
 
 import os
+import shutil
 import sys
 from base64 import b64encode
 from typing import Any, Dict, Optional, Tuple
@@ -76,6 +77,26 @@ def format_code() -> None:
     """Correct source code following the Black style."""
     print("    * Make repository Black linter compliant.")
     sh.black("setup.py", "src", "docs/examples", "tests")
+
+
+def clean_unwanted_directories() -> None:
+    """Remove directories that don't apply to the specific case."""
+    print("* Cleaning unwanted directories")
+    # Prevent Black from formatting these lines
+    # fmt: off
+    remove_paths = [
+        '{% if cookiecutter.configure_command_line != "True" %} tests/e2e/test_cli.py {% endif %}', # noqa
+        '{% if cookiecutter.configure_command_line != "True" %} src/cli.py {% endif %}',
+    ]
+    # fmt: on
+
+    for path in remove_paths:
+        path = path.strip()
+        if path and os.path.exists(path):
+            if os.path.isdir(path):
+                shutil.rmtree(path)
+            else:
+                os.unlink(path)
 
 
 def initialize_requirement_files() -> None:
@@ -302,6 +323,7 @@ def main() -> None:
 
     password_store = passpy.Store()
     configure_github_repository(password_store)
+    clean_unwanted_directories()
 
 
 if __name__ == "__main__" and os.environ.get("COOKIECUTTER_TESTING") != "true":

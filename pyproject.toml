@@ -93,7 +93,7 @@ dlint = ["+*"]
 pylint = [
   "+*",
   "-C0411", # %s should be placed before %s,
-           # see https://github.com/PyCQA/pylint/issues/2175 and https://github.com/PyCQA/pylint/issues/1797
+            # see https://github.com/PyCQA/pylint/issues/2175 and https://github.com/PyCQA/pylint/issues/1797
 ]
 mccabe = ["+*"]
 pep8-naming = ["+*"]

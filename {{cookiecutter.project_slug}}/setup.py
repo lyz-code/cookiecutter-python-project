@@ -41,9 +41,18 @@ setup(
         "Topic :: Utilities",
         "Natural Language :: English",
     ],
+    {%- if cookiecutter.configure_command_line == "true" -%}
+    entry_points="""
+        [console_scripts]
+        {{cookiecutter.project_underscore_slug}}={{cookiecutter.project_underscore_slug}}.entrypoints.cli:cli
+    """,
+    {%- endif %}
     install_requires=[
         {%- if cookiecutter.requirements != "" -%}
         {% for requirement in cookiecutter.requirements.split(', ') %}'{{ requirement }}', {% endfor %}
+        {%- endif -%}
+        {%- if cookiecutter.configure_command_line == "true" -%}
+        "Click",
         {%- endif -%}
     ],
 )

@@ -3,11 +3,16 @@
   "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '-').replace('_', '-') }}",
   "project_description": "Project to deploy {{ cookiecutter.project_name }}",
   "requirements": "",
+  "configure_command_line": [
+    true,
+    false
+  ],
   "github_user": "github-user",
   "github_token_pass_path": "internet/github.api_token",
   "pypi_token_pass_path": "internet/pypi.token",
   "test_pypi_token_pass_path": "internet/test.pypi.token",
   "author": "Author Name",
   "author_email": "author@email.org",
-  "security_advisories_email": "{{ cookiecutter.author_email }}"
+  "security_advisories_email": "{{ cookiecutter.author_email }}",
+  "project_underscore_slug": "{{ cookiecutter.project_slug.replace('-', '_') }}"
 }

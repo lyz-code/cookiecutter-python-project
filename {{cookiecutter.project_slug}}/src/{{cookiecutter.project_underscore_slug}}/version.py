@@ -9,7 +9,7 @@ __version__ = "0.1.0"  # Do not edit this line manually, let `make bump` do it.
 def version_info() -> str:
     """Display the version of the program, python and the platform."""
     info = {
-        "{{cookiecutter.project_slug.replace('-', '_')}} version": __version__,
+        "{{cookiecutter.project_underscore_slug}} version": __version__,
         "python version": sys.version.replace("\n", " "),
         "platform": platform.platform(),
     }

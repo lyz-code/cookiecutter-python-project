@@ -36,6 +36,9 @@ The template will:
     automatically bump the version and generate the changelog without human
     interaction with [commitizen](https://commitizen-tools.github.io/commitizen/).
 
+* Configure the command line interface. Adding the `--version` argument to show
+    the current version.
+
 * Create a helper function to output the version of the program, Python and the
     operative system, useful for debugging user issues.
 
