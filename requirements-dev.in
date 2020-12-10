@@ -47,3 +47,6 @@ autoimport
 black
 isort
 yamlfix
+
+# Building
+pep517
