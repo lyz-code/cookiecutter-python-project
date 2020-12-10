@@ -5,13 +5,57 @@ from glob import glob
 from os.path import basename, splitext
 
 from setuptools import find_packages, setup
+{% if cookiecutter.read_configuration_from_yaml == "True" -%}
+import logging
+import os
+import shutil
+from setuptools.command.install import install
+from setuptools.command.egg_info import egg_info
 
+
+log = logging.getLogger(__name__)
+{%- else -%}
+
+
+{%- endif %}
 # Avoid loading the package to extract the version
 with open("src/{{ cookiecutter.project_slug.replace('-', '_') }}/version.py") as fp:
     version_match = re.search(r'__version__ = "(?P<version>.*)"', fp.read())
     if version_match is None:
         raise ValueError("The version is not specified in the version.py file.")
     version = version_match["version"]
+
+{% if cookiecutter.read_configuration_from_yaml == "True" -%}
+class PostInstallCommand(install):  # type: ignore
+    """Post-installation for installation mode."""
+
+    def run(self) -> None:
+        install.run(self)
+
+        try:
+            data_directory = os.path.expanduser("~/.local/share/my_test_project")
+            os.makedirs(data_directory)
+            log.info("Data directory created")
+        except FileExistsError:
+            log.info("Data directory already exits")
+
+        config_path = os.path.join(data_directory, "config.yaml")
+        if os.path.isfile(config_path) and os.access(config_path, os.R_OK):
+            log.info(
+                "Configuration file already exists, check the documentation "
+                "for the new version changes."
+            )
+        else:
+            shutil.copyfile("assets/config.yaml", config_path)
+            log.info("Copied default configuration template")
+
+
+class PostEggInfoCommand(egg_info):  # type: ignore
+    """Post-installation for egg_info mode."""
+
+    def run(self) -> None:
+        egg_info.run(self)
+{%- endif %}
 
 setup(
     name="{{ cookiecutter.project_slug }}",
@@ -41,11 +85,14 @@ setup(
         "Topic :: Utilities",
         "Natural Language :: English",
     ],
-    {%- if cookiecutter.configure_command_line == "True" -%}
+    {% if cookiecutter.configure_command_line == "True" -%}
     entry_points="""
         [console_scripts]
         {{cookiecutter.project_underscore_slug}}={{cookiecutter.project_underscore_slug}}.entrypoints.cli:cli
     """,
+    {%- endif %}
+    {% if cookiecutter.read_configuration_from_yaml == "True" -%}
+    cmdclass={"install": PostInstallCommand, "egg_info": PostEggInfoCommand},
     {%- endif %}
     install_requires=[
         {%- if cookiecutter.requirements != "" -%}

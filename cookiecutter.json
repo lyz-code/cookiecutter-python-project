@@ -7,6 +7,10 @@
     true,
     false
   ],
+  "read_configuration_from_yaml": [
+    true,
+    false
+  ],
   "github_user": "github-user",
   "github_token_pass_path": "internet/github.api_token",
   "pypi_token_pass_path": "internet/pypi.token",
