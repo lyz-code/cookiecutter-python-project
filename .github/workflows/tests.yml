@@ -4,10 +4,10 @@ name: Tests
 on:  # yamllint disable-line rule:truthy
   push:
     branches:
-      - '*'         # matches every branch that doesn't contain a '/'
-      - '*/*'       # matches every branch containing a single '/'
-      - '**'        # matches every branch
-      - '!gh-pages' # excludes gh-pages
+      - '*'          # matches every branch that doesn't contain a '/'
+      - '*/*'        # matches every branch containing a single '/'
+      - '**'         # matches every branch
+      - '!gh-pages'  # excludes gh-pages
 
 jobs:
   Tests:
@@ -31,10 +31,10 @@ jobs:
           npm install -g markdownlint-cli
       - name: Test linters
         run: make lint
-      - name: Test security
-        run: make security
       - name: Test type checkers
         run: make mypy
+      - name: Test security
+        run: make security
       - name: Test with pytest
         run: make test
       - name: Test documentation

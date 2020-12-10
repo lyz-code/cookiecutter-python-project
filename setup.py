@@ -5,11 +5,8 @@ from os.path import basename, splitext
 
 from setuptools import find_packages, setup
 
-__version__ = "0.1.0"
-
 setup(
     name="cookiecutter-python-project",
-    version=__version__,
     description="A Cookiecutter template for creating Python projects",
     author="Lyz",
     author_email="lyz-code-security-advisories@riseup.net",

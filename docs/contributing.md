@@ -3,8 +3,8 @@ We'd love you to contribute to *cookiecutter-python-project*!
 ## Issues
 
 Questions, feature requests and bug reports are all welcome as issues.
-**However, to report a security vulnerability, please see our [security
-policy](https://github.com/lyz-code/cookiecutter-python-project/security/policy).**
+**To report a security vulnerability, please see our [security
+policy](https://github.com/lyz-code/cookiecutter-python-project/security/policy) instead.**
 
 To make it as simple as possible for us to help you, please include the versions
 of:
@@ -32,8 +32,8 @@ label on github.
 To make contributing as easy and fast as possible, you'll want to run tests and
 linting locally.
 
-!!! note "TL;DR"
-    Use `make format` to fix formatting, `make` to run tests and linting & `make docs`
+!!! note ""
+    **tl;dr**: use `make format` to fix formatting, `make` to run tests and linting & `make docs`
     to build the docs.
 
 You'll need to have python 3.6, 3.7, or 3.8, virtualenv, git, and make installed.
@@ -41,8 +41,8 @@ You'll need to have python 3.6, 3.7, or 3.8, virtualenv, git, and make installed
 * Clone your fork and go into the repository directory:
 
     ```bash
-    git clone git@github.com:<your username>/{{ cookiecutter.project_slug }}.git
-    cd {{ cookiecutter.project_slug }}
+    git clone git@github.com:<your username>/cookiecutter-python-project.git
+    cd cookiecutter-python-project
     ```
 
 * Set up the virtualenv for running tests:
@@ -58,7 +58,7 @@ You'll need to have python 3.6, 3.7, or 3.8, virtualenv, git, and make installed
     npm install markdownlint-cli
     ```
 
-* Install {{ cookiecutter.project_slug }}, dependencies and configure the
+* Install cookiecutter-python-project, dependencies and configure the
     pre-commits:
 
     ```bash
@@ -71,7 +71,7 @@ You'll need to have python 3.6, 3.7, or 3.8, virtualenv, git, and make installed
     git checkout -b my-new-feature-branch
     ```
 
-* Fix formatting and imports: {{ cookiecutter.project_slug }} uses
+* Fix formatting and imports: cookiecutter-python-project uses
     [black](https://github.com/ambv/black) to enforce formatting and
     [isort](https://github.com/timothycrosley/isort) to fix imports.
 
@@ -101,3 +101,6 @@ You'll need to have python 3.6, 3.7, or 3.8, virtualenv, git, and make installed
     ```
 
 * Commit, push, and create your pull request.
+
+* Make a new release: To generate the changelog of the new changes, build the
+    package, upload to pypi and clean the build files use `make bump`.

@@ -859,7 +859,7 @@
  * blog */
 .md-content a[href*='lyz-code.github.io']::after,
 .md-content a:not([href*="//"])::after {
-    background-image: url("/cookiecutter-python-project/assets/images/bluebook.svg");
+    background-image: url("/cookiecutter-python-project/assets/images/pydo.svg");
 }
 .md-content a[href*='lyz-code.github.io']:hover::after,
 .md-content a:not([href*="//"])::after {
