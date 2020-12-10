@@ -101,3 +101,6 @@ You'll need to have python 3.6, 3.7, or 3.8, virtualenv, git, and make installed
     ```
 
 * Commit, push, and create your pull request.
+
+* Make a new release: To generate the changelog of the new changes, build the
+    package, upload to pypi and clean the build files use `make bump`.
