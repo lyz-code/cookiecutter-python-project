@@ -110,6 +110,9 @@ docs:
 
 	@echo ""
 
+.PHONY: bump
+bump: bump-version
+
 .PHONY: build-docs
 build-docs:
 	@echo "--------------------------"
@@ -117,11 +120,20 @@ build-docs:
 	@echo "--------------------------"
 
 	mkdocs build
+
 	@echo ""
 
-.PHONY: version
-version:
-	@python -c "import repository_pattern.version; print(repository_pattern.version.version_info())"
+.PHONY: bump-version
+bump-version:
+	@echo "---------------------------"
+	@echo "- Bumping program version -"
+	@echo "---------------------------"
+
+	cz bump --changelog --no-verify
+	git push
+	git push --tags
+
+	@echo ""
 
 .PHONY: security
 security:
@@ -134,3 +146,7 @@ security:
 	bandit -r hooks
 
 	@echo ""
+
+.PHONY: version
+version:
+	@python -c "import cookiecutter_python_project.version; print(cookiecutter_python_project.version.version_info())"
