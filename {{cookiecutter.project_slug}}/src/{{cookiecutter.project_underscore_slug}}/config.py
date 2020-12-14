@@ -1,6 +1,6 @@
 """Define the configuration of the main program."""
 
-{%- if cookiecutter.read_configuration_from_yaml == "True" -%}
+{% if cookiecutter.read_configuration_from_yaml == "True" -%}
 import logging
 import os
 from collections import UserDict

@@ -73,6 +73,8 @@ def test_project_generation_without_external_hooks(
     check_paths(paths)
 
 
+@pytest.mark.trylast
+@pytest.mark.slow
 @pytest.mark.parametrize("context_override", SUPPORTED_COMBINATIONS, ids=_fixture_id)
 def test_flakehell_passes(
     cookies: Cookies, context: Dict[str, str], context_override: Dict[str, str]
@@ -81,15 +83,19 @@ def test_flakehell_passes(
     result = cookies.bake(extra_context={**context, **context_override})
 
     try:
-        result = sh.bash(
+        sh.bash(
             "-c",
             "virtualenv -p `which python3.7` env; "
             "source env/bin/activate; "
-            "pip install -r requirements-dev.txt; "
-            "flakehell lint ",
+            "pip install pip-tools; "
+            "pip-compile -U --allow-unsafe setup.py; "
+            "pip-compile -U --allow-unsafe requirements-dev.in "
+            "   --output-file requirements-dev.txt; "
+            "pip install -r requirements-dev.txt",
             _cwd=str(result.project),
         )
-        sh.flakehell("lint", _cwd=str(result.project))
+        __import__("pdb").set_trace()  # XXX BREAKPOINT
+        result = sh.flakehell("lint", "src", "tests", _cwd=str(result.project))
     except sh.ErrorReturnCode as error:
         pytest.fail(error.stdout.decode())
 
@@ -146,6 +152,7 @@ def test_pip_compile_is_able_to_build_requirements(
             "-c",
             "virtualenv -p `which python3.7` env; "
             "source env/bin/activate; "
+            "pip install pip-tools; "
             "pip-compile --allow-unsafe; "
             "pip-compile --allow-unsafe docs/requirements.in "
             "   --output-file docs/requirements.txt; "
@@ -185,6 +192,7 @@ def test_mkdocs_build_valid_site(cookies: Cookies, context: Dict[str, str]) -> N
             "-c",
             "virtualenv -p `which python3.7` env; "
             "source env/bin/activate; "
+            "pip install pip-tools; "
             "pip-compile docs/requirements.in --output-file docs/requirements.txt; "
             "pip install -r docs/requirements.txt; "
             "pip install -e .; "

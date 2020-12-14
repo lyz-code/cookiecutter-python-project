@@ -9,7 +9,7 @@ from {{cookiecutter.project_underscore_slug}}.version import __version__
 from {{cookiecutter.project_underscore_slug}}.config import Config
 
 
-{%- if cookiecutter.read_configuration_from_yaml == "True" -%}
+{% if cookiecutter.read_configuration_from_yaml == "True" -%}
 @pytest.fixture(name="config")
 def fixture_config(tmpdir_factory) -> Config:
     data = tmpdir_factory.mktemp("data")
@@ -21,7 +21,7 @@ def fixture_config(tmpdir_factory) -> Config:
 {%- endif %}
 
 
-{%- if cookiecutter.read_configuration_from_yaml == "True" -%}
+{% if cookiecutter.read_configuration_from_yaml == "True" -%}
 @pytest.fixture(name="runner")
 def fixture_runner(config) -> CliRunner:
     """Configure the Click cli test runner."""
@@ -44,7 +44,7 @@ def test_version(runner: CliRunner) -> None:
         r" *python version: .*\n *platform: .*",
         result.stdout,
     )
-{%- if cookiecutter.read_configuration_from_yaml == "True" -%}
+{% if cookiecutter.read_configuration_from_yaml == "True" -%}
 
 
 def test_load_config_handles_wrong_file_format(self, runner, tmpdir, caplog):

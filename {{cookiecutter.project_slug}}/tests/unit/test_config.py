@@ -8,7 +8,8 @@ from {{cookiecutter.project_underscore_slug}}.config import Config
 
 def test_config_load(config: Config) -> None:
     """Loading the configuration from the yaml file works."""
-    config.load()
+    config.load()  # act
+
     assert config.data["verbose"] == "info"
 
 
@@ -16,7 +17,7 @@ def test_save_config(config: Config) -> None:
     """Saving the configuration to the yaml file works."""
     config.data = {"a": "b"}
 
-    config.save()
+    config.save()  # act
 
     with open(config.config_path, "r") as f:
         assert "a:" in f.read()
@@ -28,7 +29,8 @@ def test_get_can_fetch_nested_items_with_dots(config: Config) -> None:
         "first": {"second": "value"},
     }
 
-    assert config.get("first.second") == "value"
+    result = config.get("first.second")
+    assert result == "value"
 
 
 def test_config_can_fetch_nested_items_with_dictionary_notation(config: Config) -> None:
@@ -37,7 +39,9 @@ def test_config_can_fetch_nested_items_with_dictionary_notation(config: Config) 
         "first": {"second": "value"},
     }
 
-    assert config["first"]["second"] == "value"
+    result = config["first"]["second"]
+
+    assert result == "value"
 
 
 def test_get_an_unexistent_key_raises_error(config: Config) -> None:
@@ -46,17 +50,19 @@ def test_get_an_unexistent_key_raises_error(config: Config) -> None:
         "reports": {"second": "value"},
     }
 
-    with pytest.raises(KeyError) as e:
+    with pytest.raises(KeyError) as error:
         config.get("reports.inexistent")
 
-    assert re.match(
-        r".*Failed to fetch the configuration inexistent "
-        r"when searching for reports.inexistent.*",
-        str(e),
-    )
+        assert re.match(
+            r".*Failed to fetch the configuration inexistent "
+            r"when searching for reports.inexistent.*",
+            str(error),
+        )
 
 
 def test_set_can_set_nested_items_with_dots(config: Config) -> None:
     """Setting values of configuration keys using dot notation works."""
-    config.set("storage.type", "tinydb")
+
+    config.set("storage.type", "tinydb")  # act
+
     assert config.data["storage"]["type"] == "tinydb"
