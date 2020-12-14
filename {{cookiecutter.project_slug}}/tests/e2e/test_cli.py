@@ -7,27 +7,13 @@ import pytest
 from click.testing import CliRunner
 from {{cookiecutter.project_underscore_slug}}.entrypoints.cli import cli
 from {{cookiecutter.project_underscore_slug}}.version import __version__
-from {{cookiecutter.project_underscore_slug}}.config import Config
 from _pytest.logging import LogCaptureFixture
 {% if cookiecutter.read_configuration_from_yaml == "True" -%}
-from shutil import copyfile
 from py._path.local import LocalPath
-from _pytest.tmpdir import TempdirFactory
 {%- endif %}
 
 
-{% if cookiecutter.read_configuration_from_yaml == "True" -%}
-@pytest.fixture(name="config")
-def fixture_config(tmpdir_factory: TempdirFactory) -> Config:
-    """Configure the Config object for the tests."""
-    data = tmpdir_factory.mktemp("data")
-    config_file = str(data.join("config.yaml"))
-    copyfile("assets/config.yaml", config_file)
-    config = Config(config_file)
-
-    return config
-{%- endif %}
-
+log = logging.getLogger(__name__)
 
 {% if cookiecutter.read_configuration_from_yaml == "True" -%}
 @pytest.fixture(name="runner")
@@ -55,13 +41,15 @@ def test_version(runner: CliRunner) -> None:
 {% if cookiecutter.read_configuration_from_yaml == "True" -%}
 
 
-def test_load_config_handles_wrong_file_format(
-    runner: CliRunner,
-    tmpdir: LocalPath,
-    caplog: LogCaptureFixture
+def test_load_config_handles_configerror_exceptions(
+    runner: CliRunner, tmpdir: LocalPath, caplog: LogCaptureFixture
 ) -> None:
-    """Capture the error of a wrong configuration file."""
-    config_file = tmpdir.join("config.yaml")
+    """
+    Given: A wrong configuration file.
+    When: CLI is initialized
+    Then: The ConfigError exception is gracefully handled.
+    """
+    config_file = tmpdir.join("config.yaml")  # type: ignore
     config_file.write("[ invalid yaml")
 
     result = runner.invoke(cli, ["-c", str(config_file), "null"])
@@ -70,25 +58,8 @@ def test_load_config_handles_wrong_file_format(
     assert (
         "{{cookiecutter.project_underscore_slug}}.entrypoints",
         logging.ERROR,
-        f"Error parsing yaml of configuration file {config_file}: expected ',' or"
-        " ']', but got '<stream end>'",
-    ) in caplog.record_tuples
-
-
-def test_load_handles_file_not_found(
-    runner: CliRunner,
-    tmpdir: LocalPath,
-    caplog: LogCaptureFixture
-) -> None:
-    """Capture the error of a missing configuration file."""
-    config_file = tmpdir.join("unexistent_config.yaml")
-
-    result = runner.invoke(cli, ["-c", str(config_file), "null"])
-
-    assert result.exit_code == 1
-    assert (
-        "{{cookiecutter.project_underscore_slug}}.entrypoints",
-        logging.ERROR,
-        f"Error opening configuration file {config_file}",
+        f'while parsing a flow sequence\n  in "{config_file}", '
+        "line 1, column 1\nexpected ',' or ']', but got '<stream end>'\n  in"
+        f' "{config_file}", line 1, column 15',
     ) in caplog.record_tuples
 {%- endif %}

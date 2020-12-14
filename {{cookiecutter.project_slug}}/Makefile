@@ -1,4 +1,4 @@
-.DEFAULT_GOAL := all
+.DEFAULT_GOAL := test
 isort = isort src docs/examples tests setup.py
 black = black --target-version py37 src docs/examples tests setup.py
 
@@ -89,6 +89,7 @@ clean:
 
 	rm -rf `find . -name __pycache__`
 	rm -f `find . -type f -name '*.py[co]' `
+	rm -f `find . -type f -name '*.rej' `
 	rm -f `find . -type f -name '*~' `
 	rm -f `find . -type f -name '.*~' `
 	rm -rf .cache
@@ -121,7 +122,18 @@ docs: test-examples
 	@echo ""
 
 .PHONY: bump
-bump: bump-version build-package upload-pypi clean
+bump: pull-master bump-version build-package upload-pypi clean
+
+.PHONY: pull-master
+pull-master:
+	@echo "------------------------"
+	@echo "- Updating repository  -"
+	@echo "------------------------"
+
+	git checkout master
+	git pull
+
+	@echo ""
 
 .PHONY: build-package
 build-package:

@@ -18,6 +18,7 @@ log = logging.getLogger(__name__)
 
 
 {%- endif %}
+
 # Avoid loading the package to extract the version
 with open("src/{{ cookiecutter.project_slug.replace('-', '_') }}/version.py") as fp:
     version_match = re.search(r'__version__ = "(?P<version>.*)"', fp.read())
@@ -34,7 +35,7 @@ class PostInstallCommand(install):  # type: ignore
         install.run(self)
 
         try:
-            data_directory = os.path.expanduser("~/.local/share/my_test_project")
+            data_directory = os.path.expanduser("~/.local/share/{{ cookiecutter.project_slug}}")
             os.makedirs(data_directory)
             log.info("Data directory created")
         except FileExistsError:
@@ -62,7 +63,7 @@ class PostEggInfoCommand(egg_info):  # type: ignore
 setup(
     name="{{ cookiecutter.project_slug }}",
     version=version,
-    description="A Cookiecutter template for creating Python projects",
+    description="{{ cookiecutter.project_description }}",
     author="{{ cookiecutter.author}}",
     author_email="{{ cookiecutter.author_email}}",
     license="GNU General Public License v3",
@@ -71,6 +72,7 @@ setup(
     url="https://github.com/{{ cookiecutter.github_user}}/{{ cookiecutter.project_slug }}",
     packages=find_packages("src"),
     package_dir={"": "src"},
+    package_data={"{{ cookiecutter.project_underscore_slug }}": ["py.typed"]},
     py_modules=[splitext(basename(path))[0] for path in glob("src/*.py")],
     python_requires=">=3.6",
     classifiers=[
@@ -102,6 +104,9 @@ setup(
         {%- endif -%}
         {%- if cookiecutter.configure_command_line == "True" -%}
         "Click",
+        {%- endif -%}
+        {%- if cookiecutter.read_configuration_from_yaml == "True" -%}
+        "ruamel.yaml",
         {%- endif -%}
     ],
 )

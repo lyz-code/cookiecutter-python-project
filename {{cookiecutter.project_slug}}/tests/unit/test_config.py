@@ -1,9 +1,20 @@
 """Test the configuration of the program."""
 
-import re
+from unittest.mock import Mock, patch
 
 import pytest
-from {{cookiecutter.project_underscore_slug}}.config import Config
+from ruamel.yaml.scanner import ScannerError
+
+from {{cookiecutter.project_underscore_slug}}.config import Config, ConfigError
+
+
+# R0903: too few methods. C'est la vie!
+class FileMarkMock:  # noqa: R0903
+    """Mock of the ruamel FileMark object."""
+
+    name: str = "mark"
+    line: int = 1
+    column: int = 1
 
 
 def test_config_load(config: Config) -> None:
@@ -11,6 +22,36 @@ def test_config_load(config: Config) -> None:
     config.load()  # act
 
     assert config.data["verbose"] == "info"
+
+
+@patch("{{cookiecutter.project_underscore_slug}}.config.YAML")
+def test_load_handles_wrong_file_format(yaml_mock: Mock, config: Config) -> None:
+    """
+    Given: A config file with wrong yaml format.
+    When: configuration is loaded.
+    Then: A ConfigError is returned.
+    """
+    yaml_mock.return_value.load.side_effect = ScannerError(
+        "error",
+        FileMarkMock(),
+        "problem",
+        FileMarkMock(),
+    )
+
+    with pytest.raises(ConfigError):
+        config.load()
+
+
+def test_load_handles_file_not_found(config: Config) -> None:
+    """
+    Given: An inexistent config file.
+    When: configuration is loaded.
+    Then: A ConfigError is returned.
+    """
+    config.config_path = "inexistent.yaml"
+
+    with pytest.raises(ConfigError):
+        config.load()
 
 
 def test_save_config(config: Config) -> None:
@@ -45,13 +86,13 @@ def test_config_can_fetch_nested_items_with_dictionary_notation(config: Config) 
     assert result == "value"
 
 
-def test_get_an_unexistent_key_raises_error(config: Config) -> None:
+def test_get_an_inexistent_key_raises_error(config: Config) -> None:
     """If the key you're trying to fetch doesn't exist, raise a KeyError exception."""
     config.data = {
         "reports": {"second": "value"},
     }
 
-    with pytest.raises(KeyError) as error:
+    with pytest.raises(ConfigError):
         config.get("reports.inexistent")
 
 
@@ -59,6 +100,4 @@ def test_set_can_set_nested_items_with_dots(config: Config) -> None:
     """Setting values of configuration keys using dot notation works."""
     config.set("storage.type", "tinydb")  # act
 
-    result = config.data["storage"]["type"]
-
-    assert result == "tinydb"
+    assert config.data["storage"]["type"] == "tinydb"

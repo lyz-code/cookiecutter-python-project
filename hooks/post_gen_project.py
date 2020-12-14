@@ -89,6 +89,7 @@ def clean_unwanted_directories() -> None:
         '{% if cookiecutter.configure_command_line != "True" %} src/cli.py {% endif %}',
         '{% if cookiecutter.read_configuration_from_yaml != "True" %} assets {% endif %}', # noqa
         '{% if cookiecutter.read_configuration_from_yaml != "True" %} tests/unit/test_config.py {% endif %}', # noqa
+        '{% if cookiecutter.read_configuration_from_yaml != "True" %} tests/assets {% endif %}', # noqa
     ]
     # fmt: on
 

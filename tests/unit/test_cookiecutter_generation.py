@@ -74,7 +74,6 @@ def test_project_generation_without_external_hooks(
 
 
 @pytest.mark.trylast
-@pytest.mark.slow
 @pytest.mark.parametrize("context_override", SUPPORTED_COMBINATIONS, ids=_fixture_id)
 def test_flakehell_passes(
     cookies: Cookies, context: Dict[str, str], context_override: Dict[str, str]
@@ -83,6 +82,9 @@ def test_flakehell_passes(
     result = cookies.bake(extra_context={**context, **context_override})
 
     try:
+        # The black step is executed by the post hooks
+        # we need to run everything in the same step so that flakehell uses the
+        # virtualenv.
         sh.bash(
             "-c",
             "virtualenv -p `which python3.7` env; "
@@ -91,29 +93,25 @@ def test_flakehell_passes(
             "pip-compile -U --allow-unsafe setup.py; "
             "pip-compile -U --allow-unsafe requirements-dev.in "
             "   --output-file requirements-dev.txt; "
-            "pip install -r requirements-dev.txt; ",
-            "pip install -e .",
+            "pip install -r requirements-dev.txt; "
+            "pip install -e .; "
+            "black .; "
+            "flakehell lint src tests",
             _cwd=str(result.project),
         )
-        # This step is run by the post-generation hooks
-        __import__("pdb").set_trace()  # XXX BREAKPOINT
-        sh.black(".", _cwd=str(result.project))
-        result = sh.flakehell("lint", "src", "tests", _cwd=str(result.project))
     except sh.ErrorReturnCode as error:
         pytest.fail(error.stdout.decode())
 
 
 @pytest.mark.parametrize("context_override", SUPPORTED_COMBINATIONS, ids=_fixture_id)
-def test_black_passes(
+def test_black_is_able_to_correct_files(
     cookies: Cookies, context: Dict[str, str], context_override: Dict[str, str]
 ) -> None:
-    """Generated project should pass black."""
+    """Black is run on the post hooks, make sure it runs without problem."""
     result = cookies.bake(extra_context={**context, **context_override})
 
     try:
-        sh.black(
-            "--check", "--diff", "--exclude", "migrations", _cwd=str(result.project)
-        )
+        sh.black("--exclude", "migrations", _cwd=str(result.project))
     except sh.ErrorReturnCode as error:
         pytest.fail(error.stdout.decode())
 
@@ -122,7 +120,7 @@ def test_black_passes(
 def test_yamllint_passes(
     cookies: Cookies, context: Dict[str, str], context_override: Dict[str, str]
 ) -> None:
-    """Generated project should pass black."""
+    """Generated project pass yamllint."""
     result = cookies.bake(extra_context={**context, **context_override})
 
     try:
@@ -135,7 +133,7 @@ def test_yamllint_passes(
 def test_markdownlint_passes(
     cookies: Cookies, context: Dict[str, str], context_override: Dict[str, str]
 ) -> None:
-    """Generated project should pass black."""
+    """Generated project should pass markdownlint."""
     result = cookies.bake(extra_context={**context, **context_override})
 
     try:
@@ -144,6 +142,7 @@ def test_markdownlint_passes(
         pytest.fail(error.stdout.decode())
 
 
+@pytest.mark.trylast
 def test_pip_compile_is_able_to_build_requirements(
     cookies: Cookies, context: Dict[str, str]
 ) -> None:
@@ -167,6 +166,7 @@ def test_pip_compile_is_able_to_build_requirements(
         pytest.fail(error.stderr.decode())
 
 
+@pytest.mark.trylast
 def test_generated_package_is_installable(
     cookies: Cookies, context: Dict[str, str]
 ) -> None:
@@ -186,6 +186,7 @@ def test_generated_package_is_installable(
         pytest.fail(error.stderr.decode())
 
 
+@pytest.mark.trylast
 def test_mkdocs_build_valid_site(cookies: Cookies, context: Dict[str, str]) -> None:
     """Generated project should be able to build the documentation."""
     result = cookies.bake(extra_context={**context})
@@ -196,6 +197,7 @@ def test_mkdocs_build_valid_site(cookies: Cookies, context: Dict[str, str]) -> N
             "virtualenv -p `which python3.7` env; "
             "source env/bin/activate; "
             "pip install pip-tools; "
+            "pip-compile --allow-unsafe; "
             "pip-compile docs/requirements.in --output-file docs/requirements.txt; "
             "pip install -r docs/requirements.txt; "
             "pip install -e .; "
