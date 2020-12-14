@@ -96,7 +96,9 @@ dlint = ["+*"]
 pylint = [
   "+*",
   "-C0411", # %s should be placed before %s,
-           # see https://github.com/PyCQA/pylint/issues/2175 and https://github.com/PyCQA/pylint/issues/1797
+            # see https://github.com/PyCQA/pylint/issues/2175 and https://github.com/PyCQA/pylint/issues/1797
+  "-W1203", # Use %s formatting in logging functions. Deprecated rule in favor of
+            # f-strings
 ]
 mccabe = ["+*"]
 pep8-naming = ["+*"]
