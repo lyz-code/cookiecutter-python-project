@@ -103,7 +103,7 @@ We assume you are comfortable with some tools:
 
 * [cruft](https://lyz-code.github.io/blue-book/linux/cruft) or
     [cookiecutter](https://lyz-code.github.io/blue-book/linux/cookiecutter/) to generate
-    the l
+    the template.
 * [pass](https://www.passwordstore.org/): Used to load the sensitive data such as
     the github credentials.
 * [commitizen](https://commitizen-tools.github.io/commitizen/): Used to bump the version
@@ -125,4 +125,4 @@ cookiecutter https://github.com/lyz-code/cookiecutter-python-project
 
 For guidance on setting up a development environment, and how to make
 a contribution to *cookiecutter-python-project*, see [Contributing to
-cookiecutter-python-project](https://github.io/lyz-code/cookiecutter-python-project/contributing).
+cookiecutter-python-project](https://lyz-code.github.io/cookiecutter-python-project/contributing).

@@ -1,3 +1,21 @@
+## 0.2.0 (2020-12-10)
+
+### Feat
+
+- add bump makefile command
+- add flakehell exceptions and remove the missing docstring exception in tests
+- add the __all__ variable to the project __init__.py file
+- add yamlfix formatter to development requirements
+
+### fix
+
+- add typing information to the __all__ variable
+
+### Fix
+
+- **services**: correct docstring
+- **version**: correct the name of the package
+
 ## 0.1.2 (2020-11-23)
 
 ### Fix

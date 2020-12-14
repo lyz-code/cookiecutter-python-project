@@ -1,3 +1,4 @@
+---
 site_name: Cookiecutter Python Project
 site_author: Lyz
 site_url: https://lyz-code.github.io/cookiecutter-python-project
@@ -10,10 +11,13 @@ plugins:
   - autolinks
   - git-revision-date-localized:
       type: timeago
+      fallback_to_build_date: true
   - minify:
       minify_html: true
 
 markdown_extensions:
+  - abbr
+  - def_list
   - admonition
   - markdown_include.include:
       base_path: docs
@@ -28,29 +32,30 @@ markdown_extensions:
   - pymdownx.critic
   - pymdownx.details
   - pymdownx.emoji:
-      emoji_generator: !!python/name:pymdownx.emoji.to_svg
+      emoji_generator: '!!python/name:pymdownx.emoji.to_svg'
   - pymdownx.inlinehilite
   - pymdownx.magiclink
   - pymdownx.mark
   - pymdownx.smartsymbols
   - pymdownx.superfences
+  - pymdownx.tabbed
   - pymdownx.tasklist:
       custom_checkbox: true
   - pymdownx.tilde
 
 theme:
   name: material
-  custom_dir: 'docs/theme'
+  custom_dir: docs/theme
   # logo: 'images/logo.bmp'
   features:
     - navigation.instant
   palette:
-    primary: 'blue grey'
-    accent: 'light blue'
+    primary: blue grey
+    accent: light blue
 
 extra_css:
-  - 'stylesheets/extra.css'
-  - 'stylesheets/links.css'
+  - stylesheets/extra.css
+  - stylesheets/links.css
 
 repo_name: lyz-code/cookiecutter-python-project
 repo_url: https://github.com/lyz-code/cookiecutter-python-project
