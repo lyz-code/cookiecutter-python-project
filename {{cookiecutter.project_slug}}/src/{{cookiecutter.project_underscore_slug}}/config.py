@@ -11,7 +11,9 @@ from ruamel.yaml import YAML
 log = logging.getLogger(__name__)
 
 
-class Config(UserDict):
+# R0901: UserDict has too many ancestors. Right now I don't feel like switching to
+#   another base class, as `dict` won't work straight ahead.
+class Config(UserDict):  # noqa: R0901
     """Expose the configuration in a friendly way.
 
     Public methods:
@@ -24,8 +26,12 @@ class Config(UserDict):
         data(dict): Program configuration.
     """
 
-    def __init__(self, config_path="~/.local/share/{{ cookiecutter.project_underscore_slug}}/config.yaml"):
+    def __init__(
+        self,
+        config_path: str = "~/.local/share/{{ cookiecutter.project_underscore_slug}}/config.yaml"
+    ) -> None:
         """Configure the attributes and load the configuration."""
+        super().__init__()
         self.config_path = os.path.expanduser(config_path)
         self.load()
 
@@ -45,17 +51,17 @@ class Config(UserDict):
         self.data.get('first.second') == 'value'
         """
         original_key = key
-        keys = key.split(".")
+        config_keys = key.split(".")
         value = self.data.copy()
 
-        for key in keys:
+        for config_key in config_keys:
             try:
-                value = value[key]
-            except KeyError:
+                value = value[config_key]
+            except KeyError as error:
                 raise KeyError(
-                    f"Failed to fetch the configuration {key} "
+                    f"Failed to fetch the configuration {config_key} "
                     f"when searching for {original_key}"
-                )
+                ) from error
 
         return value
 
@@ -77,22 +83,19 @@ class Config(UserDict):
         keys: List = key.split(".")
 
         parent = self.get(".".join(keys[:-1]))
-        if isinstance(parent, dict):
-            parent[keys[-1]] = value
-        else:
+        if not isinstance(parent, dict):
             raise ValueError("No configuration is found under the path {key}")
+        parent[keys[-1]] = value
 
     def load(self) -> None:
         """Load the configuration from the configuration YAML file."""
+        with open(os.path.expanduser(self.config_path), "r") as file_cursor:
+            self.data = YAML().load(file_cursor)
 
-        with open(os.path.expanduser(self.config_path), "r") as f:
-            self.data = YAML().load(f)
-
-    def save(self):
+    def save(self) -> None:
         """Save the configuration in the configuration YAML file."""
-
-        with open(os.path.expanduser(self.config_path), "w+") as f:
+        with open(os.path.expanduser(self.config_path), "w+") as file_cursor:
             yaml = YAML()
             yaml.default_flow_style = False
-            yaml.dump(self.data, f)
+            yaml.dump(self.data, file_cursor)
 {%- endif %}

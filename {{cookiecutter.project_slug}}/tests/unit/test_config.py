@@ -19,8 +19,8 @@ def test_save_config(config: Config) -> None:
 
     config.save()  # act
 
-    with open(config.config_path, "r") as f:
-        assert "a:" in f.read()
+    with open(config.config_path, "r") as file_cursor:
+        assert "a:" in file_cursor.read()
 
 
 def test_get_can_fetch_nested_items_with_dots(config: Config) -> None:
@@ -30,6 +30,7 @@ def test_get_can_fetch_nested_items_with_dots(config: Config) -> None:
     }
 
     result = config.get("first.second")
+
     assert result == "value"
 
 
@@ -53,16 +54,11 @@ def test_get_an_unexistent_key_raises_error(config: Config) -> None:
     with pytest.raises(KeyError) as error:
         config.get("reports.inexistent")
 
-        assert re.match(
-            r".*Failed to fetch the configuration inexistent "
-            r"when searching for reports.inexistent.*",
-            str(error),
-        )
-
 
 def test_set_can_set_nested_items_with_dots(config: Config) -> None:
     """Setting values of configuration keys using dot notation works."""
-
     config.set("storage.type", "tinydb")  # act
 
-    assert config.data["storage"]["type"] == "tinydb"
+    result = config.data["storage"]["type"]
+
+    assert result == "tinydb"

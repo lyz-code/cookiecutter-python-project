@@ -30,6 +30,7 @@ class PostInstallCommand(install):  # type: ignore
     """Post-installation for installation mode."""
 
     def run(self) -> None:
+        """Create required directories and files."""
         install.run(self)
 
         try:
@@ -54,6 +55,7 @@ class PostEggInfoCommand(egg_info):  # type: ignore
     """Post-installation for egg_info mode."""
 
     def run(self) -> None:
+        """Create required directories and files."""
         egg_info.run(self)
 {%- endif %}
 

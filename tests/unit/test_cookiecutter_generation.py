@@ -91,10 +91,13 @@ def test_flakehell_passes(
             "pip-compile -U --allow-unsafe setup.py; "
             "pip-compile -U --allow-unsafe requirements-dev.in "
             "   --output-file requirements-dev.txt; "
-            "pip install -r requirements-dev.txt",
+            "pip install -r requirements-dev.txt; ",
+            "pip install -e .",
             _cwd=str(result.project),
         )
+        # This step is run by the post-generation hooks
         __import__("pdb").set_trace()  # XXX BREAKPOINT
+        sh.black(".", _cwd=str(result.project))
         result = sh.flakehell("lint", "src", "tests", _cwd=str(result.project))
     except sh.ErrorReturnCode as error:
         pytest.fail(error.stdout.decode())
