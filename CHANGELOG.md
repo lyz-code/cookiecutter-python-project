@@ -1,3 +1,18 @@
+## 0.3.0 (2020-12-27)
+
+### Feat
+
+- add command line templates and config reading from yaml
+- add command line configuration
+
+### feat
+
+- **pyproject**: disable W1201 and C0301 for everything and E501 for the test of the views
+
+### Fix
+
+- disable the W1203 pylint error.
+
 ## 0.2.0 (2020-12-10)
 
 ### Feat
