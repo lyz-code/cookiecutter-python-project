@@ -6,6 +6,8 @@
       "project_name": "Cookiecutter Python Project",
       "project_slug": "cookiecutter-python-project",
       "project_description": "Cookiecutter template to generate python projects following the best practices gathered over the time.",
+      "configure_command_line": false,
+      "read_configuration_from_yaml": false,
       "requirements": "cookiecutter, arrow, sh",
       "github_user": "lyz-code",
       "github_token_pass_path": "internet/github.lyz-code.api_token",
