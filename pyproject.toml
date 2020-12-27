@@ -35,7 +35,6 @@ exclude = '''
 [tool.pytest.ini_options]
 minversion = "6.0"
 addopts = "-vv --tb=short"
-python_paths = "."
 norecursedirs = [
     ".tox",
     ".git",
@@ -47,7 +46,7 @@ norecursedirs = [
 ]
 markers = [
     "slow: marks tests as slow (deselect with '-m \"not slow\"')",
-    "secondary: mark tests that use functionality tested in the same file (deselect with '-m \"not secondary\"')"
+    "secondary: mark tests that use functionality tested in the same file (deselect with '-m \"not secondary\"')",
 ]
 
 # --------- Isort -------------
@@ -93,7 +92,7 @@ dlint = ["+*"]
 pylint = [
   "+*",
   "-C0411", # %s should be placed before %s,
-           # see https://github.com/PyCQA/pylint/issues/2175 and https://github.com/PyCQA/pylint/issues/1797
+            # see https://github.com/PyCQA/pylint/issues/2175 and https://github.com/PyCQA/pylint/issues/1797
 ]
 mccabe = ["+*"]
 pep8-naming = ["+*"]

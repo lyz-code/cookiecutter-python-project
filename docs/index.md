@@ -36,6 +36,15 @@ The template will:
     automatically bump the version and generate the changelog without human
     interaction with [commitizen](https://commitizen-tools.github.io/commitizen/).
 
+* Configure the command line interface. Adding the `--version` argument to show
+    the current version.
+
+* Configure management of the program configuration using a yaml file:
+    * Configure the installation to create the directory containing the
+        configuration file and copy the template of the default yaml file.
+    * Configure the Config object that allows the fetching and setting of the
+        configuration in a friendly dotted way.
+
 * Create a helper function to output the version of the program, Python and the
     operative system, useful for debugging user issues.
 

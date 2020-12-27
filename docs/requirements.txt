@@ -6,7 +6,7 @@
 #
 babel==2.9.0              # via mkdocs-git-revision-date-localized-plugin
 beautifulsoup4==4.9.3     # via mkdocs-htmlproofer-plugin, mkdocstrings
-certifi==2020.12.5        # via requests
+certifi==2020.11.8        # via requests
 chardet==3.0.4            # via requests
 click==7.1.2              # via mkdocs, nltk
 future==0.18.2            # via lunr

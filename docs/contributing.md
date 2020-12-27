@@ -1,5 +1,3 @@
-We'd love you to contribute to *cookiecutter-python-project*!
-
 ## Issues
 
 Questions, feature requests and bug reports are all welcome as issues.
@@ -104,3 +102,5 @@ You'll need to have python 3.6, 3.7, or 3.8, virtualenv, git, and make installed
 
 * Make a new release: To generate the changelog of the new changes, build the
     package, upload to pypi and clean the build files use `make bump`.
+
+We'd love you to contribute to *cookiecutter-python-project*!

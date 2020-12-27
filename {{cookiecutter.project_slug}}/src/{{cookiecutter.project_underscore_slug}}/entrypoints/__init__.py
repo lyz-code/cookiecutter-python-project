@@ -6,10 +6,33 @@ Functions:
 
 import logging
 import sys
+{% if cookiecutter.read_configuration_from_yaml == "True" %}
+from {{cookiecutter.project_underscore_slug}}.config import Config
+from ruamel.yaml.parser import ParserError
+{% endif %}
 
 log = logging.getLogger(__name__)
 
 
+{% if cookiecutter.read_configuration_from_yaml == "True" %}
+def load_config(config_path: str) -> Config:
+    """Load the configuration from the file."""
+    log.debug(f"Loading the configuration from file {config_path}")
+    try:
+        config = Config(config_path)
+    except ParserError as error:
+        log.error(
+            f"Error parsing yaml of configuration file {config_path}: {error.problem}"
+        )
+        sys.exit(1)
+    except FileNotFoundError:
+        log.error(f"Error opening configuration file {config_path}")
+        sys.exit(1)
+
+    return config
+
+
+{% endif %}
 # I have no idea how to test this function :(. If you do, please send a PR.
 def load_logger(verbose: bool = False) -> None:  # pragma no cover
     """Configure the Logging logger.

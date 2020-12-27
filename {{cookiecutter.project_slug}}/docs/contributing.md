@@ -1,6 +1,42 @@
-We'd love you to contribute to *{{ cookiecutter.project_slug }}*!
+So you've started using `{{ cookiecutter.project_slug }}` and want to show your gratitude to the project,
+depending on your programming skills there are different ways to do so.
 
-## Issues
+# I don't know how to program
+
+There are several ways you can contribute:
+
+* [Open an issue](https://github.com/{{ cookiecutter.github_user }}/{{ cookiecutter.project_slug }}/issues/new) if you encounter
+    any bug or to let us know if you want a new feature to be implemented.
+* Spread the word about the program.
+* Review the [documentation](https://{{ cookiecutter.github_user }}.github.io/{{ cookiecutter.project_slug }}) and try to improve
+    it.
+
+# I know how to program in Python
+
+If you have some python knowledge there are some additional ways to contribute.
+We've ordered the [issues](https://github.com/{{ cookiecutter.github_user }}/{{ cookiecutter.project_slug }}/issues) in
+[milestones](https://github.com/{{ cookiecutter.github_user }}/{{ cookiecutter.project_slug }}/milestones), check the issues in
+the smaller one, as it's where we'll be spending most of our efforts. Try the
+[good first
+issues](https://github.com/{{ cookiecutter.github_user }}/{{ cookiecutter.project_slug }}/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22),
+as they are expected to be easier to get into the project.
+
+We develop the program with
+[TDD](https://en.wikipedia.org/wiki/Test-driven_development), so we expect any
+contribution to have it's associated tests. We also try to maintain an updated
+[documentation](https://{{ cookiecutter.github_user }}.github.io/{{ cookiecutter.project_slug }}) of the project, so think if
+your contribution needs to update it.
+
+We know that the expected code quality is above average. Therefore it might
+be changeling to get the initial grasp of the project structure, know how to make the
+tests, update the documentation or use all the project technology stack. but please
+don't let this fact discourage you from contributing:
+
+* If you want to develop a new feature, explain how you'd like to do it in the related issue.
+* If you don't know how to test your code, do the pull request without the tests
+    and we'll try to do them for you.
+
+# Issues
 
 Questions, feature requests and bug reports are all welcome as issues.
 **To report a security vulnerability, please see our [security
@@ -20,7 +56,7 @@ Please try to always include the above unless you're unable to install `{{
 cookiecutter.project_slug }}` or know it's not relevant to your question or
 feature request.
 
-## Pull Requests
+# Pull Requests
 
 *{{ cookiecutter.project_slug }}* is released regularly so you should see your
 improvements release in a matter of days or weeks.
@@ -33,7 +69,7 @@ If you're looking for something to get your teeth into, check out the ["help
 wanted"](https://github.com/{{ cookiecutter.github_user }}/{{ cookiecutter.project_slug }}/issues?q=is%3Aopen+is%3Aissue+label%3A%22help+wanted%22)
 label on github.
 
-## Development facilities
+# Development facilities
 
 To make contributing as easy and fast as possible, you'll want to run tests and
 linting locally.
@@ -104,3 +140,5 @@ You'll need to have python 3.6, 3.7, or 3.8, virtualenv, git, and make installed
 
 * Make a new release: To generate the changelog of the new changes, build the
     package, upload to pypi and clean the build files use `make bump`.
+
+We'd love you to contribute to *{{ cookiecutter.project_slug }}*!
