@@ -79,6 +79,7 @@ clean:
 
 	rm -rf `find . -name __pycache__`
 	rm -f `find . -type f -name '*.py[co]' `
+	rm -f `find . -type f -name '*.rej' `
 	rm -f `find . -type f -name '*~' `
 	rm -f `find . -type f -name '.*~' `
 	rm -rf .cache
@@ -111,7 +112,18 @@ docs:
 	@echo ""
 
 .PHONY: bump
-bump: bump-version
+bump: pull-master bump-version clean
+
+.PHONY: pull-master
+pull-master:
+	@echo "------------------------"
+	@echo "- Updating repository  -"
+	@echo "------------------------"
+
+	git checkout master
+	git pull
+
+	@echo ""
 
 .PHONY: build-docs
 build-docs:
