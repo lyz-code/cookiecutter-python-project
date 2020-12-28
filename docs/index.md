@@ -21,6 +21,8 @@ The template will:
 * Configure the program dependencies to be handled by
     [pip-tools](https://lyz-code.github.io/blue-book/devops/pip_tools/).
 
+* Configure a Github Action to hourly update the dependencies.
+
 * Configure the program documentation using
     [MkDocs](https://lyz-code.github.io/blue-book/linux/mkdocs), with some
     niceties like generating a reference page [directly from the
