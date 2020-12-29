@@ -1,3 +1,9 @@
+## 0.4.0 (2020-12-29)
+
+### Feat
+
+- create CI pipeline to hourly update requirements
+
 ## 0.3.0 (2020-12-27)
 
 ### Feat
