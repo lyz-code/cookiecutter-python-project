@@ -104,6 +104,7 @@ def clean_unwanted_directories() -> None:
 
 def initialize_requirement_files() -> None:
     """Generate the python dependencies requirement files."""
+    __import__("pdb").set_trace()  # XXX BREAKPOINT
     print("    * Generate requirements.txt")
     sh.pip_compile("--allow-unsafe")
     print("        * Generate requirements-dev.txt")
