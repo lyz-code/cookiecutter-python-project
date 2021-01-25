@@ -100,7 +100,7 @@ setup(
     {%- endif %}
     install_requires=[
         {%- if cookiecutter.requirements != "" -%}
-        {% for requirement in cookiecutter.requirements.split(', ') %}'{{ requirement }}', {% endfor %}
+        {% for requirement in cookiecutter.requirements.split(',') %}'{{ requirement | trim }}', {% endfor %}
         {%- endif -%}
         {%- if cookiecutter.configure_command_line == "True" -%}
         "Click",

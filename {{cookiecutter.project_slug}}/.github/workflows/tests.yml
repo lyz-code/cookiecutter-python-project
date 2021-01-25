@@ -8,7 +8,8 @@ on:  # yamllint disable-line rule:truthy
       - '*/*'        # matches every branch containing a single '/'
       - '**'         # matches every branch
       - '!gh-pages'  # excludes gh-pages
-
+  pull_request:
+    types: [opened]
 jobs:
   Tests:
     runs-on: ubuntu-latest
@@ -16,7 +17,6 @@ jobs:
       max-parallel: 3
       matrix:
         python-version: [3.6, 3.7, 3.8]
-
     steps:
       - uses: actions/checkout@v1
       - name: Set up Python {% raw %}${{ matrix.python-version }}{% endraw %}
@@ -36,7 +36,7 @@ jobs:
       - name: Upload Coverage
         run: |
           pip3 install coveralls
-          coveralls
+          coveralls --service=github
         env:
           GITHUB_TOKEN: {% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}
           COVERALLS_FLAG_NAME: {% raw %}${{ matrix.test-name }}{% endraw %}
@@ -52,7 +52,7 @@ jobs:
       - name: Finished
         run: |
           pip3 install coveralls
-          coveralls --finish
+          coveralls --service=github --finish
         env:
           GITHUB_TOKEN: {% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}
   Python_Package:
