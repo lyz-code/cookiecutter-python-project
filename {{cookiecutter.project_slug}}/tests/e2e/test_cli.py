@@ -58,7 +58,7 @@ def test_load_config_handles_configerror_exceptions(
     assert (
         "{{cookiecutter.project_underscore_slug}}.entrypoints",
         logging.ERROR,
-        f'while parsing a flow sequence\n  in "{config_file}", '
+        f'Configuration Error: while parsing a flow sequence\n  in "{config_file}", '
         "line 1, column 1\nexpected ',' or ']', but got '<stream end>'\n  in"
         f' "{config_file}", line 1, column 15',
     ) in caplog.record_tuples
