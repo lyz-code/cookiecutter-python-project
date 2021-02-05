@@ -4,12 +4,14 @@ import logging
 import re
 
 import pytest
+from _pytest.logging import LogCaptureFixture
 from click.testing import CliRunner
+from py._path.local import LocalPath
+from {{cookiecutter.project_underscore_slug}}.config import Config
 from {{cookiecutter.project_underscore_slug}}.entrypoints.cli import cli
 from {{cookiecutter.project_underscore_slug}}.version import __version__
-from _pytest.logging import LogCaptureFixture
+
 {% if cookiecutter.read_configuration_from_yaml == "True" -%}
-from py._path.local import LocalPath
 {%- endif %}
 
 
@@ -17,7 +19,7 @@ log = logging.getLogger(__name__)
 
 {% if cookiecutter.read_configuration_from_yaml == "True" -%}
 @pytest.fixture(name="runner")
-def fixture_runner(config) -> CliRunner:
+def fixture_runner(config: Config) -> CliRunner:
     """Configure the Click cli test runner."""
     return CliRunner(mix_stderr=False, env={"{{cookiecutter.project_underscore_slug | upper}}_CONFIG_PATH": config.config_path})
 {% else -%}
