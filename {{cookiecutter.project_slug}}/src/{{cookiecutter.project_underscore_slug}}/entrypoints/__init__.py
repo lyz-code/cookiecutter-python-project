@@ -8,7 +8,6 @@ import logging
 import sys
 {% if cookiecutter.read_configuration_from_yaml == "True" %}
 from {{cookiecutter.project_underscore_slug}}.config import Config, ConfigError
-from ruamel.yaml.parser import ParserError
 {% endif %}
 
 log = logging.getLogger(__name__)
