@@ -14,13 +14,6 @@ repos:
       - id: black
         language_version: python3.7
         exclude: '{{cookiecutter.project_slug}}'
-  - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v0.782
-    hooks:
-      - name: Run mypy static analysis tool
-        id: mypy
-        args: [--no-strict-optional, --ignore-missing-imports, --allow-untyped-decorators]
-        exclude: '{{cookiecutter.project_slug}}'
   - repo: https://github.com/life4/flakehell/
     rev: master
     hooks:
