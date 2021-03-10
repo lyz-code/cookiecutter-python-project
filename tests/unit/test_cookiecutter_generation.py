@@ -50,7 +50,10 @@ def check_paths(paths: List[str]) -> None:
         if is_binary(path):
             continue
 
-        for line in open(path, "r"):
+        with open(path, "r") as path_file:
+            path_content = path_file.read()
+
+        for line in path_content.splitlines():
             match = RE_OBJ.search(line)
             assert match is None, f"cookiecutter variable not replaced in {path}"
 
