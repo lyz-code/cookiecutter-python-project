@@ -130,7 +130,9 @@ def get_password(password_store: passpy.Store, password_path: str) -> str:
 def generate_ssh_key() -> Tuple[str, str]:
     """Generate public and private ssh keys."""
     key = rsa.generate_private_key(
-        backend=crypto_default_backend(), public_exponent=65537, key_size=4096
+        backend=crypto_default_backend(),  # type: ignore
+        public_exponent=65537,
+        key_size=4096,
     )
 
     private_key = str(
