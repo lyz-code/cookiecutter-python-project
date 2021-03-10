@@ -1,3 +1,24 @@
+## 0.5.0 (2021-03-11)
+
+### Feat
+
+- patch the E0611 error when importing pydantic models
+
+### fix
+
+- SIM115 in setup.py
+
+### Fix
+
+- Add the Config type hint to the runner fixture
+- correct configuration error test
+- bug in requirement parsing.
+- reduce the requirements update to daily
+
+### feat
+
+- ignore ANN102 and TYP001
+
 ## 0.4.0 (2020-12-29)
 
 ### Feat
