@@ -60,6 +60,9 @@ class PostEggInfoCommand(egg_info):  # type: ignore
         egg_info.run(self)
 {%- endif %}
 
+with open("README.md", "r") as readme_file:
+    readme = readme_file.read()
+
 setup(
     name="{{ cookiecutter.project_slug }}",
     version=version,
@@ -67,7 +70,7 @@ setup(
     author="{{ cookiecutter.author}}",
     author_email="{{ cookiecutter.author_email}}",
     license="GNU General Public License v3",
-    long_description=open("README.md").read(),
+    long_description=readme,
     long_description_content_type="text/markdown",
     url="https://github.com/{{ cookiecutter.github_user}}/{{ cookiecutter.project_slug }}",
     packages=find_packages("src"),
