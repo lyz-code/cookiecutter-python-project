@@ -17,7 +17,7 @@ astor==0.8.1
     # via flake8-simplify
 astpretty==2.1.0
     # via flake8-expression-complexity
-astroid==2.5.1
+astroid==2.5.2
     # via pylint
 asttokens==2.0.4
     # via flake8-aaa
@@ -82,7 +82,7 @@ cookiecutter==1.7.2
     #   pytest-cookies
 coverage==5.5
     # via pytest-cov
-cryptography==3.4.6
+cryptography==3.4.7
     # via -r requirements.txt
 distlib==0.3.1
     # via virtualenv
@@ -100,15 +100,15 @@ flake8-aaa==0.11.1
     # via -r requirements-dev.in
 flake8-annotations-complexity==0.0.6
     # via -r requirements-dev.in
-flake8-annotations==2.6.0
+flake8-annotations==2.6.2
     # via -r requirements-dev.in
-flake8-bugbear==21.3.2
+flake8-bugbear==21.4.3
     # via -r requirements-dev.in
-flake8-comprehensions==3.3.1
+flake8-comprehensions==3.4.0
     # via -r requirements-dev.in
 flake8-debugger==4.0.0
     # via -r requirements-dev.in
-flake8-docstrings==1.5.0
+flake8-docstrings==1.6.0
     # via -r requirements-dev.in
 flake8-eradicate==1.0.0
     # via -r requirements-dev.in
@@ -124,7 +124,7 @@ flake8-plugin-utils==1.3.1
     # via flake8-pytest-style
 flake8-polyfill==1.0.2
     # via pep8-naming
-flake8-pytest-style==1.3.0
+flake8-pytest-style==1.4.1
     # via -r requirements-dev.in
 flake8-pytest==1.3
     # via -r requirements-dev.in
@@ -136,7 +136,7 @@ flake8-use-fstring==1.1
     # via -r requirements-dev.in
 flake8-variables-names==0.0.4
     # via -r requirements-dev.in
-flake8==3.8.4
+flake8==3.9.0
     # via
     #   dlint
     #   flake8-annotations
@@ -158,7 +158,7 @@ flakehell==0.9.0
     # via -r requirements-dev.in
 future==0.18.2
     # via lunr
-gitdb==4.0.5
+gitdb==4.0.7
     # via
     #   -r requirements.txt
     #   gitpython
@@ -170,25 +170,26 @@ gitpython==3.1.14
     #   passpy
 htmlmin==0.1.12
     # via mkdocs-minify-plugin
-identify==2.1.1
+identify==2.2.2
     # via pre-commit
 idna==2.10
     # via
     #   -r requirements.txt
     #   requests
-importlib-metadata==3.7.2
+importlib-metadata==3.10.0
     # via
     #   flake8
     #   flake8-comprehensions
     #   flake8-simplify
     #   flake8-typing-imports
     #   markdown
+    #   pep517
     #   pluggy
     #   pre-commit
     #   pytest
     #   stevedore
     #   virtualenv
-isort==5.7.0
+isort==5.8.0
     # via
     #   -r requirements-dev.in
     #   pylint
@@ -207,7 +208,7 @@ joblib==1.0.1
     # via nltk
 jsmin==2.2.2
     # via mkdocs-minify-plugin
-lazy-object-proxy==1.5.2
+lazy-object-proxy==1.6.0
     # via astroid
 livereload==2.6.3
     # via mkdocs
@@ -243,7 +244,7 @@ mkdocs-htmlproofer-plugin==0.1.0
     # via -r docs/requirements.in
 mkdocs-material-extensions==1.0.1
     # via mkdocs-material
-mkdocs-material==7.0.5
+mkdocs-material==7.1.0
     # via
     #   -r docs/requirements.in
     #   mkdocs-material-extensions
@@ -286,9 +287,11 @@ pathspec==0.8.1
     #   yamllint
 pbr==5.5.1
     # via stevedore
+pep517==0.10.0
+    # via pip-tools
 pep8-naming==0.11.1
     # via -r requirements-dev.in
-pip-tools==5.5.0
+pip-tools==6.0.1
     # via -r requirements-dev.in
 pluggy==0.13.1
     # via pytest
@@ -300,7 +303,7 @@ pre-commit==2.11.1
     # via -r requirements-dev.in
 py==1.10.0
     # via pytest
-pycodestyle==2.6.0
+pycodestyle==2.7.0
     # via
     #   flake8
     #   flake8-debugger
@@ -308,9 +311,9 @@ pycparser==2.20
     # via
     #   -r requirements.txt
     #   cffi
-pydocstyle==5.1.1
+pydocstyle==6.0.0
     # via flake8-docstrings
-pyflakes==2.2.0
+pyflakes==2.3.1
     # via
     #   autoflake
     #   flake8
@@ -318,7 +321,7 @@ pygments==2.8.1
     # via
     #   flakehell
     #   mkdocs-material
-pylint==2.7.2
+pylint==2.7.4
     # via -r requirements-dev.in
 pymdown-extensions==8.1.1
     # via
@@ -350,7 +353,7 @@ python-dateutil==2.8.1
     # via
     #   -r requirements.txt
     #   arrow
-python-gnupg==0.4.6
+python-gnupg==0.4.7
     # via
     #   -r requirements.txt
     #   passpy
@@ -358,7 +361,7 @@ python-slugify==4.0.1
     # via
     #   -r requirements.txt
     #   cookiecutter
-pytkdocs==0.11.0
+pytkdocs==0.11.1
     # via mkdocstrings
 pytz==2021.1
     # via babel
@@ -369,7 +372,7 @@ pyyaml==5.4.1
     #   mkdocs
     #   pre-commit
     #   yamllint
-regex==2020.11.13
+regex==2021.4.4
     # via
     #   black
     #   nltk
@@ -381,7 +384,7 @@ requests==2.25.1
     #   safety
 ruamel.yaml.clib==0.2.2
     # via ruamel.yaml
-ruamel.yaml==0.16.13
+ruamel.yaml==0.17.2
     # via yamlfix
 safety==1.10.3
     # via -r requirements-dev.in
@@ -402,13 +405,13 @@ six==1.15.0
     #   pynacl
     #   python-dateutil
     #   virtualenv
-smmap==3.0.5
+smmap==4.0.0
     # via
     #   -r requirements.txt
     #   gitdb
 snowballstemmer==2.1.0
     # via pydocstyle
-soupsieve==2.2
+soupsieve==2.2.1
     # via beautifulsoup4
 stevedore==3.3.0
     # via bandit
@@ -421,13 +424,14 @@ toml==0.10.2
     #   black
     #   dparse
     #   flakehell
+    #   pep517
     #   pre-commit
     #   pylint
 tornado==6.1
     # via
     #   livereload
     #   mkdocs
-tqdm==4.59.0
+tqdm==4.60.0
     # via nltk
 typed-ast==1.4.2
     # via
@@ -441,12 +445,12 @@ typing-extensions==3.7.4.3
     #   importlib-metadata
     #   mypy
     #   pytkdocs
-urllib3==1.26.3
+urllib3==1.26.4
     # via
     #   -r requirements.txt
     #   flakehell
     #   requests
-virtualenv==20.4.2
+virtualenv==20.4.3
     # via pre-commit
 wcwidth==0.2.5
     # via pytest
@@ -454,17 +458,19 @@ wheel==0.36.2
     # via astunparse
 wrapt==1.12.1
     # via astroid
-yamlfix==0.4.0
+yamlfix==0.4.1
     # via -r requirements-dev.in
-yamllint==1.26.0
+yamllint==1.26.1
     # via -r requirements-dev.in
 zipp==3.4.1
-    # via importlib-metadata
+    # via
+    #   importlib-metadata
+    #   pep517
 
 # The following packages are considered to be unsafe in a requirements file:
 pip==21.0.1
     # via pip-tools
-setuptools==54.1.1
+setuptools==54.2.0
     # via
     #   flake8-annotations-complexity
     #   flake8-expression-complexity

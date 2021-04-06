@@ -76,7 +76,7 @@ def test_project_generation_without_external_hooks(
     check_paths(paths)
 
 
-@pytest.mark.trylast
+@pytest.mark.trylast()
 @pytest.mark.parametrize("context_override", SUPPORTED_COMBINATIONS, ids=_fixture_id)
 def test_flakehell_passes(
     cookies: Cookies, context: Dict[str, str], context_override: Dict[str, str]
@@ -145,7 +145,7 @@ def test_markdownlint_passes(
         pytest.fail(error.stdout.decode())
 
 
-@pytest.mark.trylast
+@pytest.mark.trylast()
 def test_pip_compile_is_able_to_build_requirements(
     cookies: Cookies, context: Dict[str, str]
 ) -> None:
@@ -169,7 +169,7 @@ def test_pip_compile_is_able_to_build_requirements(
         pytest.fail(error.stderr.decode())
 
 
-@pytest.mark.trylast
+@pytest.mark.trylast()
 def test_generated_package_is_installable(
     cookies: Cookies, context: Dict[str, str]
 ) -> None:
@@ -189,7 +189,7 @@ def test_generated_package_is_installable(
         pytest.fail(error.stderr.decode())
 
 
-@pytest.mark.trylast
+@pytest.mark.trylast()
 def test_mkdocs_build_valid_site(cookies: Cookies, context: Dict[str, str]) -> None:
     """Generated project should be able to build the documentation."""
     result = cookies.bake(extra_context={**context})
