@@ -6,6 +6,10 @@ nav:
   - Overview: index.md
   - Reference: reference.md
   - Contributing: contributing.md
+  - Architecture Decision Records:
+      - adr/adr.md
+      - '001: High level problem analysis': |
+          adr/001-high_level_problem_analysis.md
 
 plugins:
   - search
