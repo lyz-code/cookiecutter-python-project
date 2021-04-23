@@ -3,7 +3,7 @@ site_name: {{ cookiecutter.project_name }}
 site_author: Lyz
 site_url: https://{{ cookiecutter.github_user }}.github.io/{{ cookiecutter.project_slug }}
 nav:
-  - Overview: index.md
+  - {{ cookiecutter.project_name }}: index.md
   - Reference: reference.md
   - Contributing: contributing.md
   - Architecture Decision Records:
