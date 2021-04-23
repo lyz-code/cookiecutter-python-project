@@ -20,10 +20,10 @@ jobs:
       - name: Install the program
         run: pip install {{ cookiecutter.project_slug }}
       - name: Test the program works
-{% if cookiecutter.configure_command_line == "True" -%}
+{%- if cookiecutter.configure_command_line == "True" %}
         run: {{ cookiecutter.project_slug }} --version
-{%- else %}
+{% else %}
         run: |
           python -c "import {{ cookiecutter.project_underscore_slug }}.version;
           print({{ cookiecutter.project_underscore_slug }}.version.version_info())"
-{%- endif %}
+{% endif -%}
