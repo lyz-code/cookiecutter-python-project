@@ -1,3 +1,26 @@
+## 0.6.0 (2021-04-23)
+
+### Fix
+
+- patch the flakehell extended default ignore error
+- change black precommit branch to master
+
+### perf
+
+- Change the overview name for the package name, so it's better seen
+
+### Feat
+
+- add ADR skeleton
+
+### feat
+
+- **Makefile**: support uploading to pypi testing
+
+### fix
+
+- **Makefile**: remove more egg-info directories
+
 ## 0.5.0 (2021-03-11)
 
 ### Feat
