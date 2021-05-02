@@ -84,7 +84,8 @@ mkdocs-htmlproofer-plugin==0.1.0  # via -r docs/requirements.in
 mkdocs-material-extensions==1.0.1  # via mkdocs-material
 mkdocs-material==7.1.3    # via -r docs/requirements.in, mkdocs-material-extensions
 mkdocs-minify-plugin==0.4.0  # via -r docs/requirements.in
-mkdocs==1.1.2             # via -r docs/requirements.in, mkdocs-autolinks-plugin, mkdocs-autorefs, mkdocs-git-revision-date-localized-plugin, mkdocs-htmlproofer-plugin, mkdocs-material, mkdocs-minify-plugin, mkdocstrings
+mkdocs-section-index==0.3.0  # via -r docs/requirements.in
+mkdocs==1.1.2             # via -r docs/requirements.in, mkdocs-autolinks-plugin, mkdocs-autorefs, mkdocs-git-revision-date-localized-plugin, mkdocs-htmlproofer-plugin, mkdocs-material, mkdocs-minify-plugin, mkdocs-section-index, mkdocstrings
 mkdocstrings==0.15.0      # via -r docs/requirements.in
 more-itertools==8.7.0     # via pytest
 mypy-extensions==0.4.3    # via black, mypy
