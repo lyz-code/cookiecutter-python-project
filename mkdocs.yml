@@ -3,7 +3,7 @@ site_name: Cookiecutter Python Project
 site_author: Lyz
 site_url: https://lyz-code.github.io/cookiecutter-python-project
 nav:
-  - Overview: index.md
+  - Cookiecutter Python Project: index.md
   - Contributing: contributing.md
 
 plugins:
@@ -14,6 +14,7 @@ plugins:
       fallback_to_build_date: true
   - minify:
       minify_html: true
+  - section-index
 
 markdown_extensions:
   - abbr

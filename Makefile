@@ -15,9 +15,20 @@ update:
 	@echo "- Updating dependencies -"
 	@echo "-------------------------"
 
-	pip-compile -U --allow-unsafe
-	pip-compile -U --allow-unsafe docs/requirements.in --output-file docs/requirements.txt
-	pip-compile -U --allow-unsafe requirements-dev.in --output-file requirements-dev.txt
+	pip install -U pip
+
+	rm requirements.txt
+	touch requirements.txt
+	pip-compile -Ur --allow-unsafe
+
+	rm docs/requirements.txt
+	touch docs/requirements.txt
+	pip-compile -Ur --allow-unsafe docs/requirements.in --output-file docs/requirements.txt
+
+	rm requirements-dev.txt
+	touch requirements-dev.txt
+	pip-compile -Ur --allow-unsafe requirements-dev.in --output-file requirements-dev.txt
+
 	pip install -r requirements-dev.txt
 
 	@echo ""
@@ -80,13 +91,13 @@ clean:
 	rm -rf `find . -name __pycache__`
 	rm -f `find . -type f -name '*.py[co]' `
 	rm -f `find . -type f -name '*.rej' `
+	rm -rf `find . -type d -name '*.egg-info' `
 	rm -f `find . -type f -name '*~' `
 	rm -f `find . -type f -name '.*~' `
 	rm -rf .cache
 	rm -rf .pytest_cache
 	rm -rf .mypy_cache
 	rm -rf htmlcov
-	rm -rf *.egg-info
 	rm -f .coverage
 	rm -f .coverage.*
 	rm -rf build
@@ -132,6 +143,16 @@ build-docs:
 	@echo "--------------------------"
 
 	mkdocs build
+
+	@echo ""
+
+.PHONY: upload-testing-pypi
+upload-testing-pypi:
+	@echo "-------------------------------------"
+	@echo "- Uploading package to pypi testing -"
+	@echo "-------------------------------------"
+
+	twine upload -r testpypi dist/*
 
 	@echo ""
 
