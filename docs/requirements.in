@@ -6,3 +6,4 @@ mkdocs-autolinks-plugin
 mkdocs-material
 mkdocstrings
 markdown-include
+mkdocs-section-index

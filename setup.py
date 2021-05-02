@@ -5,13 +5,16 @@ from os.path import basename, splitext
 
 from setuptools import find_packages, setup
 
+with open("README.md", "r") as readme_file:
+    readme = readme_file.read()
+
 setup(
     name="cookiecutter-python-project",
     description="A Cookiecutter template for creating Python projects",
     author="Lyz",
     author_email="lyz-code-security-advisories@riseup.net",
     license="GNU General Public License v3",
-    long_description=open("README.md").read(),
+    long_description=readme,
     long_description_content_type="text/markdown",
     url="https://github.com/lyz-code/cookiecutter-python-project",
     packages=find_packages("src"),
