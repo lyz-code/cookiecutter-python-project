@@ -1,3 +1,9 @@
+## 0.8.1 (2021-06-03)
+
+### Fix
+
+- remove git hooks from the update ci workflow
+
 ## 0.8.0 (2021-05-02)
 
 ### Feat
