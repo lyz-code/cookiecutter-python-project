@@ -98,7 +98,7 @@ def test_flakehell_passes(
             "   --output-file requirements-dev.txt; "
             "pip install -r requirements-dev.txt; "
             "pip install -e .; "
-            "black .; "
+            "black --exclude env .; "
             "flakehell lint src tests",
             _cwd=str(result.project),
         )
