@@ -5,8 +5,8 @@ black = black --target-version py37 hooks tests setup.py
 
 .PHONY: install
 install:
-	python -m pip install -U setuptools pip
-	pip install -r requirements-dev.txt
+	python -m pip install -U setuptools pip pip-tools
+	python -m piptools sync requirements.txt requirements-dev.txt docs/requirements.txt
 	pre-commit install
 
 .PHONY: update
@@ -15,21 +15,18 @@ update:
 	@echo "- Updating dependencies -"
 	@echo "-------------------------"
 
+  # Sync your virtualenv with the expected state
+	python -m piptools sync requirements.txt requirements-dev.txt docs/requirements.txt
+
 	pip install -U pip
-
-	rm requirements.txt
-	touch requirements.txt
 	pip-compile -Ur --allow-unsafe
-
-	rm docs/requirements.txt
-	touch docs/requirements.txt
 	pip-compile -Ur --allow-unsafe docs/requirements.in --output-file docs/requirements.txt
-
-	rm requirements-dev.txt
-	touch requirements-dev.txt
 	pip-compile -Ur --allow-unsafe requirements-dev.in --output-file requirements-dev.txt
 
-	pip install -r requirements-dev.txt
+  # Sync your virtualenv with the new state
+	python -m piptools sync requirements.txt requirements-dev.txt docs/requirements.txt
+
+	pip install -e .
 
 	@echo ""
 
