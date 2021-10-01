@@ -1,9 +1,6 @@
 """Python package building configuration."""
 
-from glob import glob
-from os.path import basename, splitext
-
-from setuptools import find_packages, setup
+from setuptools import setup
 
 with open("README.md", "r") as readme_file:
     readme = readme_file.read()
@@ -17,9 +14,6 @@ setup(
     long_description=readme,
     long_description_content_type="text/markdown",
     url="https://github.com/lyz-code/cookiecutter-python-project",
-    packages=find_packages("src"),
-    package_dir={"": "src"},
-    py_modules=[splitext(basename(path))[0] for path in glob("src/*.py")],
     python_requires=">=3.6",
     classifiers=[
         "Development Status :: 2 - Pre-Alpha",
@@ -36,7 +30,6 @@ setup(
         "Natural Language :: English",
     ],
     install_requires=[
-        "arrow<0.14.0",  # https://github.com/hackebrot/pytest-cookies/issues/50
         "cookiecutter",
         "cryptography",
         "passpy",
