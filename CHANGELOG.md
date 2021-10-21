@@ -1,3 +1,14 @@
+## 0.8.2 (2021-10-21)
+
+### Fix
+
+- correct makefile tab to spaces
+- use pip-sync to sync the virtualenv with the requirements
+
+### fix
+
+- **pre_commit**: correct black revision branch
+
 ## 0.8.1 (2021-06-03)
 
 ### Fix
