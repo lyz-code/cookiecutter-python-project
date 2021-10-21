@@ -46,7 +46,6 @@ norecursedirs = [
     "*/static/*",
     "docs",
     "venv",
-    "*/{{cookiecutter.project_name}}/*"
 ]
 markers = [
     "slow: marks tests as slow (deselect with '-m \"not slow\"')",
