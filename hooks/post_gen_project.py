@@ -86,7 +86,7 @@ def clean_unwanted_directories() -> None:
     # fmt: off
     remove_paths = [
         '{% if cookiecutter.configure_command_line != "True" %} tests/e2e/test_cli.py {% endif %}', # noqa
-        '{% if cookiecutter.configure_command_line != "True" %} src/cli.py {% endif %}',
+        '{% if cookiecutter.configure_command_line != "True" %} src/{{cookiecutter.project_slug}}/entrypoints/cli.py {% endif %}', # noqa
         '{% if cookiecutter.read_configuration_from_yaml != "True" %} assets {% endif %}', # noqa
         '{% if cookiecutter.read_configuration_from_yaml != "True" %} tests/unit/test_config.py {% endif %}', # noqa
         '{% if cookiecutter.read_configuration_from_yaml != "True" %} tests/assets {% endif %}', # noqa
