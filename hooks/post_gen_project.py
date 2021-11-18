@@ -326,8 +326,11 @@ def main() -> None:
 #########################"""
     )
 
-    password_store = passpy.Store()
-    configure_github_repository(password_store)
+    # E800: Found commented out code
+    # We need to migrate these steps to autodev instead. A cookiecutter should not
+    # interact with third party services.
+    # password_store = passpy.Store() # noqa: E800
+    # configure_github_repository(password_store) # noqa: E800
     clean_unwanted_directories()
 
 
