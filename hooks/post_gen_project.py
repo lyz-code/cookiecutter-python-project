@@ -326,8 +326,10 @@ def main() -> None:
 #########################"""
     )
 
-    password_store = passpy.Store()
-    configure_github_repository(password_store)
+    # We need to migrate these steps to autodev instead. A cookiecutter should not
+    # interact with third party services.
+    # password_store = passpy.Store()
+    # configure_github_repository(password_store)
     clean_unwanted_directories()
 
 
