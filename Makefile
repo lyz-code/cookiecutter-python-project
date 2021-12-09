@@ -1,13 +1,11 @@
 SHELL=/bin/bash
 .DEFAULT_GOAL := all
-isort = isort hooks tests setup.py
-black = black --target-version py37 hooks tests setup.py
+isort = pdm run isort hooks tests
+black = pdm run black --target-version py37 hooks tests
 
 .PHONY: install
 install:
-	python -m pip install -U setuptools pip pip-tools
-	python -m piptools sync requirements.txt requirements-dev.txt docs/requirements.txt
-	pre-commit install
+	pdm install --dev
 
 .PHONY: update
 update:
@@ -15,18 +13,8 @@ update:
 	@echo "- Updating dependencies -"
 	@echo "-------------------------"
 
-  # Sync your virtualenv with the expected state
-	python -m piptools sync requirements.txt requirements-dev.txt docs/requirements.txt
-
-	pip install -U pip
-	pip-compile -Ur --allow-unsafe
-	pip-compile -Ur --allow-unsafe docs/requirements.in --output-file docs/requirements.txt
-	pip-compile -Ur --allow-unsafe requirements-dev.in --output-file requirements-dev.txt
-
-  # Sync your virtualenv with the new state
-	python -m piptools sync requirements.txt requirements-dev.txt docs/requirements.txt
-
-	pip install -e .
+	pdm update --no-sync
+	pdm sync --clean
 
 	@echo ""
 
@@ -47,7 +35,7 @@ lint:
 	@echo "- Testing the lint -"
 	@echo "--------------------"
 
-	flakehell lint hooks/ tests/
+	pdm run flakehell lint src/ tests/
 	$(isort) --check-only --df
 	$(black) --check --diff
 
@@ -59,7 +47,7 @@ mypy:
 	@echo "- Testing mypy -"
 	@echo "----------------"
 
-	mypy hooks tests
+	pdm run mypy hooks tests
 
 	@echo ""
 
@@ -72,7 +60,7 @@ test-code:
 	@echo "- Testing code -"
 	@echo "----------------"
 
-	pytest tests ${ARGS}
+	pdm run pytest tests ${ARGS}
 
 	@echo ""
 
@@ -100,7 +88,6 @@ clean:
 	rm -rf build
 	rm -rf dist
 	rm -f src/*.c pydantic/*.so
-	python setup.py clean
 	rm -rf site
 	rm -rf docs/_build
 	rm -rf docs/.changelog.md docs/.version.md docs/.tmp_schema_mappings.html
@@ -115,7 +102,7 @@ docs:
 	@echo "- Serving documentation -"
 	@echo "-------------------------"
 
-	mkdocs serve
+	pdm run mkdocs serve
 
 	@echo ""
 
@@ -139,19 +126,10 @@ build-docs:
 	@echo "- Building documentation -"
 	@echo "--------------------------"
 
-	mkdocs build
+	pdm run mkdocs build
 
 	@echo ""
 
-.PHONY: upload-testing-pypi
-upload-testing-pypi:
-	@echo "-------------------------------------"
-	@echo "- Uploading package to pypi testing -"
-	@echo "-------------------------------------"
-
-	twine upload -r testpypi dist/*
-
-	@echo ""
 
 .PHONY: bump-version
 bump-version:
@@ -159,7 +137,7 @@ bump-version:
 	@echo "- Bumping program version -"
 	@echo "---------------------------"
 
-	cz bump --changelog --no-verify
+	pdm run cz bump --changelog --no-verify
 	git push
 	git push --tags
 
@@ -171,10 +149,9 @@ security:
 	@echo "- Testing security -"
 	@echo "--------------------"
 
-	# There is currently no fix [#2981](https://github.com/tornadoweb/tornado/issues/2981)
-	safety check -i 39462
+	pdm run safety check
 	@echo ""
-	bandit -r hooks
+	pdm run bandit -r hooks
 
 	@echo ""
 
