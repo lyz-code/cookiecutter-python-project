@@ -67,11 +67,10 @@ def test_project_generation_without_external_hooks(
 
     assert result.exit_code == 0
     assert result.exception is None
-    assert result.project.basename == context_override.get(
+    assert os.path.basename(result.project_path) == context_override.get(
         "project_slug", context.get("project_slug", None)
     )
-    assert result.project.isdir()
-    paths = build_files_list(str(result.project))
+    paths = build_files_list(str(result.project_path))
     assert paths
     check_paths(paths)
 
@@ -90,17 +89,12 @@ def test_flakehell_passes(
         # virtualenv.
         sh.bash(
             "-c",
-            "virtualenv -p `which python3.7` env; "
+            "virtualenv -p `which python3.9` env; "
             "source env/bin/activate; "
-            "pip install pip-tools; "
-            "pip-compile -U --allow-unsafe setup.py; "
-            "pip-compile -U --allow-unsafe requirements-dev.in "
-            "   --output-file requirements-dev.txt; "
-            "pip install -r requirements-dev.txt; "
-            "pip install -e .; "
-            "black --exclude env .; "
-            "flakehell lint src tests",
-            _cwd=str(result.project),
+            "pdm install; "
+            "pdm run black --exclude env .; "
+            "pdm run flakehell lint src tests",
+            _cwd=str(result.project_path),
         )
     except sh.ErrorReturnCode as error:
         pytest.fail(error.stdout.decode())
@@ -114,7 +108,7 @@ def test_black_is_able_to_correct_files(
     result = cookies.bake(extra_context={**context, **context_override})
 
     try:
-        sh.black("--exclude", "migrations", _cwd=str(result.project))
+        sh.black("--exclude", "migrations", ".", _cwd=str(result.project_path))
     except sh.ErrorReturnCode as error:
         pytest.fail(error.stdout.decode())
 
@@ -127,7 +121,7 @@ def test_yamllint_passes(
     result = cookies.bake(extra_context={**context, **context_override})
 
     try:
-        sh.yamllint(".", _cwd=str(result.project))
+        sh.yamllint(".", _cwd=str(result.project_path))
     except sh.ErrorReturnCode as error:
         pytest.fail(error.stdout.decode())
 
@@ -140,50 +134,26 @@ def test_markdownlint_passes(
     result = cookies.bake(extra_context={**context, **context_override})
 
     try:
-        sh.markdownlint("-c", ".markdownlint.json", ".", _cwd=str(result.project))
+        sh.markdownlint("-c", ".markdownlint.json", ".", _cwd=str(result.project_path))
     except sh.ErrorReturnCode as error:
         pytest.fail(error.stdout.decode())
 
 
 @pytest.mark.trylast()
-def test_pip_compile_is_able_to_build_requirements(
+def test_project_is_able_to_update_requirements(
     cookies: Cookies, context: Dict[str, str]
 ) -> None:
-    """Generated project should be able to build the documentation."""
+    """Generated project should be able to update the requirements."""
     result = cookies.bake(extra_context={**context})
 
     try:
         result = sh.bash(
             "-c",
-            "virtualenv -p `which python3.7` env; "
+            "virtualenv -p `which python3.9` env; "
             "source env/bin/activate; "
-            "pip install pip-tools; "
-            "pip-compile --allow-unsafe; "
-            "pip-compile --allow-unsafe docs/requirements.in "
-            "   --output-file docs/requirements.txt; "
-            "pip-compile --allow-unsafe requirements-dev.in "
-            "   --output-file requirements-dev.txt",
-            _cwd=str(result.project),
-        )
-    except sh.ErrorReturnCode as error:
-        pytest.fail(error.stderr.decode())
-
-
-@pytest.mark.trylast()
-def test_generated_package_is_installable(
-    cookies: Cookies, context: Dict[str, str]
-) -> None:
-    """Generated project should be able to build the documentation."""
-    result = cookies.bake(extra_context={**context})
-
-    try:
-        result = sh.bash(
-            "-c",
-            "virtualenv -p `which python3.7` env; "
-            "source env/bin/activate; "
-            "pip install -e .; "
-            "python -c 'import my_test_project'",
-            _cwd=str(result.project),
+            "pdm install; "
+            "pdm update",
+            _cwd=str(result.project_path),
         )
     except sh.ErrorReturnCode as error:
         pytest.fail(error.stderr.decode())
@@ -197,15 +167,11 @@ def test_mkdocs_build_valid_site(cookies: Cookies, context: Dict[str, str]) -> N
     try:
         result = sh.bash(
             "-c",
-            "virtualenv -p `which python3.7` env; "
+            "virtualenv -p `which python3.9` env; "
             "source env/bin/activate; "
-            "pip install pip-tools; "
-            "pip-compile --allow-unsafe; "
-            "pip-compile docs/requirements.in --output-file docs/requirements.txt; "
-            "pip install -r docs/requirements.txt; "
-            "pip install -e .; "
+            "pdm install; "
             "mkdocs build",
-            _cwd=str(result.project),
+            _cwd=str(result.project_path),
         )
     except sh.ErrorReturnCode as error:
         pytest.fail(error.stderr.decode())

@@ -4,30 +4,40 @@ name: Tests
 on:  # yamllint disable-line rule:truthy
   push:
     branches:
-      - '*'          # matches every branch that doesn't contain a '/'
-      - '*/*'        # matches every branch containing a single '/'
-      - '**'         # matches every branch
-      - '!gh-pages'  # excludes gh-pages
+      - master
   pull_request:
-    types: [opened]
+    types: [opened, synchronize]
+  workflow_dispatch:
+
 jobs:
   Tests:
     runs-on: ubuntu-latest
     strategy:
-      max-parallel: 3
+      max-parallel: 4
       matrix:
-        python-version: [3.8, 3.9, '3.10']
+        python-version: [3.7, 3.8, 3.9, '3.10']
     steps:
       - uses: actions/checkout@v1
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v1
         with:
           python-version: ${{ matrix.python-version }}
+      - name: Install program
+        run: |
+          # All these steps are required so that mypy behaves equally than the
+          # local environment, once mypy supports __pypackages__ try to use the
+          # github action
+          pip install virtualenv pdm
+          virtualenv .venv
+          source .venv/bin/activate
+          pdm config use_venv True
       - name: Set up Node.js
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v2
+        with:
+          node-version: '12'
       - name: Install dependencies
         run: |
-          make install
+          pdm install
           npm install -g markdownlint-cli
       - name: Test linters
         run: make lint

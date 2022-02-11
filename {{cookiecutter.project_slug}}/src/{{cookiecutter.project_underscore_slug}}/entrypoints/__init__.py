@@ -6,30 +6,27 @@ Functions:
 
 import logging
 import sys
-{% if cookiecutter.read_configuration_from_yaml == "True" %}
-from {{cookiecutter.project_underscore_slug}}.config import Config, ConfigError
-{% endif %}
+
+{% if cookiecutter.read_configuration_from_yaml == "True" -%}
+import os
+from ..config import Config
+
+{%- endif %}
 
 log = logging.getLogger(__name__)
 
-
-{% if cookiecutter.read_configuration_from_yaml == "True" %}
+{% if cookiecutter.read_configuration_from_yaml == "True" -%}
 def load_config(config_path: str) -> Config:
     """Load the configuration from the file."""
     log.debug(f"Loading the configuration from file {config_path}")
-    try:
-        config = Config(config_path)
-    except ConfigError as error:
-        log.error(f"Configuration Error: {str(error)}")
-        sys.exit(1)
-    except FileNotFoundError:
-        log.error(f"Error opening configuration file {config_path}")
-        sys.exit(1)
+    config = Config()
+    config.load(os.path.expanduser(config_path))
 
     return config
+{%- endif %}
 
 
-{% endif %}
+
 # I have no idea how to test this function :(. If you do, please send a PR.
 def load_logger(verbose: bool = False) -> None:  # pragma no cover
     """Configure the Logging logger.
