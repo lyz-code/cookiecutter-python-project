@@ -63,6 +63,7 @@ documentation = "https://{{ cookiecutter.github_user }}.github.io/{{ cookiecutte
 version = {from = "src/{{cookiecutter.project_underscore_slug}}/version.py"}
 package-dir = "src"
 source-includes = ["tests/"]
+editable-backend = "path"
 
 [tool.pdm.dev-dependencies]
 lint = [
