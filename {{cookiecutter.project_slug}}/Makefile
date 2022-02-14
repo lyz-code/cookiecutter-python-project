@@ -70,7 +70,10 @@ test-examples:
 	@echo "- Testing examples -"
 	@echo "--------------------"
 
-	@find docs/examples -type f -name '*.py' | xargs -I'{}' sh -c 'python {} >/dev/null 2>&1 || (echo "{} failed" ; exit 1)'
+	@find docs/examples -type f -name '*.py' | xargs -I'{}' sh -c 'echo {}; pdm run python {} >/dev/null 2>&1 || (echo "{} failed" ; exit 1)'
+	@echo ""
+
+	pdm run pytest docs/examples/*
 
 	@echo ""
 
