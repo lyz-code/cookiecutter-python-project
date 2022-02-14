@@ -177,7 +177,11 @@ markers = [
     "slow: marks tests as slow (deselect with '-m \"not slow\"')",
     "secondary: mark tests that use functionality tested in the same file (deselect with '-m \"not secondary\"')"
 ]
-filterwarnings = ["error"]
+filterwarnings = [
+  "error",
+  # Until https://github.com/ktosiek/pytest-freezegun/issues/35 is merged
+  "ignore::DeprecationWarning:pytest_freezegun.*",
+]
 
 # --------- Coverage -------------
 
