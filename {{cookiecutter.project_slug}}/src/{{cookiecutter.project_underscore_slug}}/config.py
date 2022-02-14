@@ -15,7 +15,7 @@ class LogLevel(str, Enum):
     ERROR = "error"
 
 class Config(GoodConf):  # type: ignore
-    """Configure the frontend."""
+    """Define the configuration of the program."""
 
     log_level: LogLevel = LogLevel.INFO
 
