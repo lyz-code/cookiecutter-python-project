@@ -37,6 +37,13 @@ documentation = "https://lyz-code.github.io/cookiecutter-python-project"
 
 [project.optional-dependencies]
 
+[tool.pdm.overrides]
+
+# To be removed once https://github.com/flakeheaven/flakeheaven/issues/55 is solved
+# To update to ">=3.10" once a version of pdm greater than 1.12.8 exists
+# "importlib-metadata" = ">=3.10"
+importlib-metadata = "4.11.1"
+
 [tool.pdm.dev-dependencies]
 lint = [
     "yamllint>=1.26.3",
@@ -62,9 +69,8 @@ lint = [
     "pep8-naming>=0.12.1",
     "dlint>=0.12.0",
     "pylint>=2.12.2",
-    # Remove the upper cap when https://github.com/flakehell/flakehell/issues/22
-    # is resolved
-    "flake8<4.0.0,>=3.9.2",
+    "flake8>=3.9.2",
+    "flakeheaven>=0.11.1",
 ]
 test = [
     "pytest>=6.2.5",
@@ -159,16 +165,15 @@ filterwarnings = [
 profile = "black"
 src_paths = ["src", "test"]
 
-# --------- Flakehell -------------
+# --------- Flakeheaven -------------
 
-[tool.flakehell]
+[tool.flakeheaven]
 format = "grouped"
 max_line_length = 88
 show_source = true
 docstring-convention = "google"
-extended_default_ignore=[]  # Until https://github.com/flakehell/flakehell/issues/10 is solved
 
-[tool.flakehell.plugins]
+[tool.flakeheaven.plugins]
 flake8-aaa = ["+*"]
 flake8-annotations = [
   "+*",

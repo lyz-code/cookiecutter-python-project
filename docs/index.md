@@ -59,7 +59,7 @@ The template will:
     * Configure [isort](https://isort.readthedocs.io/) to automatically sort the
         import statements.
     * Configure
-        [flakehell](https://lyz-code.github.io/blue-book/devops/flakehell/) to
+        [flakeheaven](https://lyz-code.github.io/blue-book/devops/flakeheaven/) to
         check errors in your code.
     * Configure [Mypy](https://lyz-code.github.io/blue-book/devops/mypy/) to
         check the typing of your code.
