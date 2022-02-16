@@ -37,6 +37,9 @@ documentation = "https://lyz-code.github.io/cookiecutter-python-project"
 
 [project.optional-dependencies]
 
+[tool.pdm]
+editable-backend = "path"
+
 [tool.pdm.overrides]
 
 # To be removed once https://github.com/flakeheaven/flakeheaven/issues/55 is solved
@@ -47,7 +50,6 @@ importlib-metadata = "4.11.1"
 [tool.pdm.dev-dependencies]
 lint = [
     "yamllint>=1.26.3",
-    "flakehell>=0.9.0",
     "flake8-aaa>=0.12.0",
     "flake8-annotations>=2.7.0",
     "flake8-annotations-complexity>=0.0.6",
@@ -140,7 +142,7 @@ exclude = '''
 
 [tool.pytest.ini_options]
 minversion = "6.0"
-addopts = "-vv --tb=short "
+addopts = "-vv --tb=short -n auto"
 norecursedirs = [
     ".tox",
     ".git",
@@ -151,12 +153,26 @@ norecursedirs = [
 ]
 markers = [
     "slow: marks tests as slow (deselect with '-m \"not slow\"')",
-    "secondary: mark tests that use functionality tested in the same file (deselect with '-m \"not secondary\"')",
+    "secondary: mark tests that use functionality tested in the same file (deselect with '-m \"not secondary\"')"
 ]
 filterwarnings = [
   "error",
   # Until https://github.com/ktosiek/pytest-freezegun/issues/35 is merged
-  "ignore::DeprecationWarning:pytest_freezegun.*"
+  "ignore::DeprecationWarning:pytest_freezegun.*",
+]
+
+# --------- Coverage -------------
+
+[tool.coverage.report]
+exclude_lines = [
+    # Have to re-enable the standard pragma
+    'pragma: no cover',
+
+    # Type checking can not be tested
+    'if TYPE_CHECKING:',
+
+    # Ignore the Abstract classes definition
+    'raise NotImplementedError',
 ]
 
 # --------- Isort -------------
@@ -208,6 +224,17 @@ pylint = [
   "+*",
   "-C0411", # %s should be placed before %s,
             # see https://github.com/PyCQA/pylint/issues/2175 and https://github.com/PyCQA/pylint/issues/1797
+  "-R0903", # Too few methods warning, but if you define an interface with just one
+            # method that's fine
+  "-W1203", # Use %s formatting in logging functions. Deprecated rule in favor of
+            # f-strings.
+  "-W1201", # Use lazy % formatting in logging functions. Deprecated rule in favor of
+            # f-strings.
+  "-W0212", # Access to a protected member of a client class, we need it for the
+            # repository_orm model name
+  "-C0301", # Lines too long. Already covered by E501.
+  "-E0401", # Unable to import X, but if you import it in a python terminal it does
+            # import, so it's a problem of how flakehell it's looking at it
 ]
 mccabe = ["+*"]
 pep8-naming = ["+*"]
@@ -216,10 +243,10 @@ pycodestyle = [
   "-W503", # No longer applies, incompatible with newer version of PEP8
            # see https://github.com/PyCQA/pycodestyle/issues/197
            # and https://github.com/psf/black/issues/113
-  ]
+]
 pyflakes = ["+*"]
 
-[tool.flakehell.exceptions."tests/"]
+[tool.flakeheaven.exceptions."tests/"]
 flake8-docstrings = [
   "-D400", # First line should end with a period
   "-D205"  # 1 blank line required between summary line and description
@@ -230,14 +257,18 @@ flake8-annotations = [
 pylint = [
   "-R0201", # Method could be a function. Raised because the methods of a test class
             # don't use the self object, which is not wrong.
+  "-W0613", # Unused argument in function, but in tests there are fixtures that even
+            # though they are not used in the function directly, they are used to
+            # configure the test.
 ]
 
-[tool.flakehell.exceptions."tests/factories.py"]
+[tool.flakeheaven.exceptions."tests/factories.py"]
 pylint = [
   "-R0903", # Too few methods warning, but is the way to define factoryboy factories.
 ]
 
 # --------- Pylint -------------
+
 [tool.pylint.'TYPECHECK']
 generated-members = "sh"
 

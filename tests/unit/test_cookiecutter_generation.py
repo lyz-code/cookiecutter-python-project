@@ -50,7 +50,7 @@ def check_paths(paths: List[str]) -> None:
         if is_binary(path):
             continue
 
-        with open(path, "r") as path_file:
+        with open(path, "r", encoding="utf-8") as path_file:
             path_content = path_file.read()
 
         for line in path_content.splitlines():

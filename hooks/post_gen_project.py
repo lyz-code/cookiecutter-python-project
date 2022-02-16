@@ -18,7 +18,9 @@ from sh import git
 
 def encrypt_secret(public_key: str, secret_value: str) -> str:
     """Encrypt a Unicode string using the public key."""
-    public_obj = public.PublicKey(public_key.encode("utf-8"), encoding.Base64Encoder())  # type: ignore
+    public_obj = public.PublicKey(
+        public_key.encode("utf-8"), encoding.Base64Encoder()  # type: ignore
+    )
     sealed_box = public.SealedBox(public_obj)
     encrypted = sealed_box.encrypt(secret_value.encode("utf-8"))
 
