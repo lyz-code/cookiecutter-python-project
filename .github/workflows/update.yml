@@ -17,6 +17,12 @@ jobs:
         uses: actions/setup-python@v1
         with:
           python-version: 3.9
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '12'
+      - name: Install dependencies
+        run: npm install -g markdownlint-cli
       - name: Install program
         run: |
           # All these steps are required so that mypy behaves equally than the
@@ -26,6 +32,7 @@ jobs:
           virtualenv .venv
           source .venv/bin/activate
           pdm config use_venv True
+          pdm install
       - name: Update requirements
         run: make update
       - name: Run tests
