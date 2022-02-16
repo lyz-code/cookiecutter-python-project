@@ -8,6 +8,7 @@ from . import load_logger
 
 {% if cookiecutter.read_configuration_from_yaml == "True" %}
 from click.core import Context
+from . import load_config
 
 {% endif %}
 
@@ -32,7 +33,7 @@ def cli(verbose: bool) -> None:
     {% if cookiecutter.read_configuration_from_yaml == "True" -%}
     ctx.ensure_object(dict)
 
-    ctx.obj["config"] = Config().load(config_path)
+    ctx.obj["config"] = load_config(config_path)
 
     {%- endif %}
     load_logger(verbose)
