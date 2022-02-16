@@ -50,7 +50,7 @@ def check_paths(paths: List[str]) -> None:
         if is_binary(path):
             continue
 
-        with open(path, "r") as path_file:
+        with open(path, "r", encoding="utf-8") as path_file:
             path_content = path_file.read()
 
         for line in path_content.splitlines():
@@ -77,15 +77,15 @@ def test_project_generation_without_external_hooks(
 
 @pytest.mark.trylast()
 @pytest.mark.parametrize("context_override", SUPPORTED_COMBINATIONS, ids=_fixture_id)
-def test_flakehell_passes(
+def test_flakeheaven_passes(
     cookies: Cookies, context: Dict[str, str], context_override: Dict[str, str]
 ) -> None:
-    """Generated project should pass flakehell."""
+    """Generated project should pass flakeheaven."""
     result = cookies.bake(extra_context={**context, **context_override})
 
     try:
         # The black step is executed by the post hooks
-        # we need to run everything in the same step so that flakehell uses the
+        # we need to run everything in the same step so that flakeheaven uses the
         # virtualenv.
         sh.bash(
             "-c",
@@ -93,7 +93,7 @@ def test_flakehell_passes(
             "source env/bin/activate; "
             "pdm install; "
             "pdm run black --exclude env .; "
-            "pdm run flakehell lint src tests",
+            "pdm run flakeheaven lint src tests",
             _cwd=str(result.project_path),
         )
     except sh.ErrorReturnCode as error:
