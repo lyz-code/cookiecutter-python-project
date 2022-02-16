@@ -3,7 +3,6 @@
 import click
 
 from .. import version
-from ..config import Config
 from . import load_logger
 
 {% if cookiecutter.read_configuration_from_yaml == "True" %}
