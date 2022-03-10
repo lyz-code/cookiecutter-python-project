@@ -1,3 +1,41 @@
+## 0.9.0 (2022-03-10)
+
+### Feat
+
+- use flakeheaven instead of the unmaintained flakehell
+- use flakeheaven instead of the unmaintained flakehell
+- change package management to pdm
+- change package management to pdm
+- use GoodConf to manage yaml configuration
+- mark deprecation warnings as errors
+- create the load_config entrypoint function
+- **ci**: add the workflow_dispatch event handler
+- Configure black to drop python 3.6 and use python 3.9 and 3.10 instead
+- Configure black to drop python 3.6 and use python 3.9 and 3.10 instead
+- disable github integration on cookiecutter creation
+- disable github integration on cookiecutter creation
+- add support for python 3.10, drop support for 3.6
+- add support for python 3.10, drop support for 3.6
+- ignore pragma cover for TYPE_CHECKING statements
+
+### Perf
+
+- fix flakeheaven issues
+- upgrade the versions of the pre-commits
+
+### Fix
+
+- ignore freezegun deprecation warning
+- select pdm path editable backed
+- select pdm path editable backed
+- remove the python_paths that is no longer needed
+- define the log_level attribute of the config object
+- **ci**: deprecate dependabot as pdm is not supported yet
+- **template**: remove the __all__ at init level
+- **template**: remove models directory and create model.py
+- **template**: correct the path to remove the cli.py entrypoint if it's not configured
+- hardcode flake8<4.0.0 until flakehell supports it
+
 ## 0.8.2 (2021-10-21)
 
 ### Fix
