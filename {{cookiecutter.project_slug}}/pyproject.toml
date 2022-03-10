@@ -9,6 +9,11 @@ version_files = [
     "src/{{ cookiecutter.project_slug.replace('-', '_') }}/version.py",
 ]
 
+# --------- Autoimport -------------
+
+[tool.autoimport.common_statements]
+"factories" = "from tests import factories"
+
 # --------- PDM -------------
 
 [project]
