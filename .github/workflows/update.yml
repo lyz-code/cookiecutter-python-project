@@ -32,7 +32,7 @@ jobs:
           virtualenv .venv
           source .venv/bin/activate
           pdm config use_venv True
-          pdm install
+          pdm install --no-self
       - name: Update requirements
         run: make update
       - name: Run tests

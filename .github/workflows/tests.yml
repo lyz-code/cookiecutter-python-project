@@ -37,7 +37,7 @@ jobs:
           node-version: '12'
       - name: Install dependencies
         run: |
-          pdm install
+          pdm install --no-self
           npm install -g markdownlint-cli
       - name: Test linters
         run: make lint
