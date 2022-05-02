@@ -14,7 +14,7 @@ def version_info() -> str:
         f"""\
         ------------------------------------------------------------------
              {{cookiecutter.project_underscore_slug}}: {__version__}
-             Python: {python_version}
+             Python: {sys.version.split(" ", maxsplit=1)}
              Platform: {platform.platform()}
         ------------------------------------------------------------------"""
     )
