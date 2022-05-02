@@ -5,7 +5,7 @@ black = pdm run black --target-version py37 hooks tests
 
 .PHONY: install
 install:
-	pdm install --dev
+	pdm install --no-self
 
 .PHONY: update
 update:
@@ -14,7 +14,7 @@ update:
 	@echo "-------------------------"
 
 	pdm update --no-sync
-	pdm sync --clean
+	pdm sync --clean --no-self
 
 	@echo ""
 

@@ -73,9 +73,7 @@ editable-backend = "path"
 [tool.pdm.overrides]
 
 # To be removed once https://github.com/flakeheaven/flakeheaven/issues/55 is solved
-# To update to ">=3.10" once a version of pdm greater than 1.12.8 exists
-# "importlib-metadata" = ">=3.10"
-importlib-metadata = "4.11.1"
+"importlib-metadata" = ">=3.10"
 
 [tool.pdm.dev-dependencies]
 lint = [
@@ -134,6 +132,9 @@ fixers = [
 ]
 typing = [
     "mypy>=0.910",
+{% if cookiecutter.configure_command_line == "True" -%}
+    "types-click>=7.1.8",
+{%- endif %}
 ]
 dev = [
     "pre-commit>=2.16.0",
@@ -281,7 +282,8 @@ flake8-docstrings = [
   "-D205"  # 1 blank line required between summary line and description
 ]
 flake8-annotations = [
-  "-ANN001"
+  "-ANN001",
+  "-ANN401", # Dynamically typed expressions (typing.Any) are disallowed
 ]
 pylint = [
   "-R0201", # Method could be a function. Raised because the methods of a test class
