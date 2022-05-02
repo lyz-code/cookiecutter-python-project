@@ -1,6 +1,6 @@
 [![Actions Status](https://github.com/{{ cookiecutter.github_user }}/{{ cookiecutter.project_slug }}/workflows/Tests/badge.svg)](https://github.com/{{ cookiecutter.github_user }}/{{ cookiecutter.project_slug }}/actions)
 [![Actions Status](https://github.com/{{ cookiecutter.github_user }}/{{ cookiecutter.project_slug }}/workflows/Build/badge.svg)](https://github.com/{{ cookiecutter.github_user }}/{{ cookiecutter.project_slug }}/actions)
-[![Coverage Status](https://coveralls.io/repos/github/{{ cookiecutter.github_user }}/{{ cookiecutter.project_slug }}/badge.svg?branch=master)](https://coveralls.io/github/{{ cookiecutter.github_user }}/{{ cookiecutter.project_slug }}?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/{{ cookiecutter.github_user }}/{{ cookiecutter.project_slug }}/badge.svg?branch=main)](https://coveralls.io/github/{{ cookiecutter.github_user }}/{{ cookiecutter.project_slug }}?branch=main)
 
 {{ cookiecutter.project_description }}
 

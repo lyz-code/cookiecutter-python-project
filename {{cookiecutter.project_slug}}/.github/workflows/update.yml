@@ -42,4 +42,4 @@ jobs:
         uses: ad-m/github-push-action@master
         with:
           github_token: {% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}
-          branch: master
+          branch: main
