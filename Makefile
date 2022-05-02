@@ -14,7 +14,7 @@ update:
 	@echo "-------------------------"
 
 	pdm update --no-sync
-	pdm sync --clean
+	pdm sync --clean --no-self
 
 	@echo ""
 
