@@ -12,7 +12,7 @@ See [documentation](https://lyz-code.github.io/cookiecutter-python-project) for 
 ## Installing
 
 ```bash
-cruft https://github.com/lyz-code/cookiecutter-python-project
+cruft create https://github.com/lyz-code/cookiecutter-python-project
 ```
 
 Or
