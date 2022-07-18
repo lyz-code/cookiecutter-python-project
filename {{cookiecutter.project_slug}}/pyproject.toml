@@ -26,10 +26,10 @@ authors = [
 license = {text = "GPL-3.0-only"}
 requires-python = ">=3.7"
 dependencies = [
-{% if cookiecutter.configure_command_line == "True" -%}
+{% if cookiecutter.configure_command_line == "True" %}
     "click>=8.0.3",
 {%- endif %}
-{% if cookiecutter.read_configuration_from_yaml == "True" -%}
+{% if cookiecutter.read_configuration_from_yaml == "True" %}
     "goodconf[yaml]>=2.0.1",
 {%- endif %}
 ]
@@ -74,6 +74,9 @@ editable-backend = "path"
 
 # To be removed once https://github.com/flakeheaven/flakeheaven/issues/55 is solved
 "importlib-metadata" = ">=3.10"
+
+# To be removed once https://github.com/mkdocs/mkdocs/issues/2892 is solved
+markdown = "<3.4"
 
 [tool.pdm.dev-dependencies]
 lint = [
@@ -132,7 +135,7 @@ fixers = [
 ]
 typing = [
     "mypy>=0.910",
-{% if cookiecutter.configure_command_line == "True" -%}
+{% if cookiecutter.configure_command_line == "True" %}
     "types-click>=7.1.8",
 {%- endif %}
 ]

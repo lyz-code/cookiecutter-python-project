@@ -35,7 +35,7 @@ def test_version(runner: CliRunner) -> None:
     result = runner.invoke(cli, ["--version"])
 
     assert result.exit_code == 0
-    assert re.match(
+    assert re.search(
         fr" *{{ cookiecutter.project_underscore_slug }}: {__version__}\n *Python: .*\n *Platform: .*",
         result.stdout,
     )
