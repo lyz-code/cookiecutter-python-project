@@ -46,6 +46,9 @@ editable-backend = "path"
 # "importlib-metadata" = ">=3.10"
 importlib-metadata = "4.11.1"
 
+# To be removed once https://github.com/mkdocs/mkdocs/issues/2892 is solved
+markdown = "<3.4"
+
 [tool.pdm.dev-dependencies]
 lint = [
     "yamllint>=1.26.3",
