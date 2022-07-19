@@ -65,7 +65,7 @@ test-code:
 	@echo ""
 
 .PHONY: all
-all: lint mypy test security
+all: lint mypy test security build-docs
 
 .PHONY: clean
 clean:
@@ -126,7 +126,7 @@ build-docs:
 	@echo "- Building documentation -"
 	@echo "--------------------------"
 
-	pdm run mkdocs build
+	pdm run mkdocs build --strict
 
 	@echo ""
 
