@@ -69,6 +69,7 @@ version = {from = "src/{{cookiecutter.project_underscore_slug}}/version.py"}
 package-dir = "src"
 source-includes = ["tests/"]
 editable-backend = "path"
+allow_prereleases = true
 
 [tool.pdm.overrides]
 
