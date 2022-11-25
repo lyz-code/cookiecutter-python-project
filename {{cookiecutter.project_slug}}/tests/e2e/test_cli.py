@@ -43,15 +43,15 @@ def test_version(runner: CliRunner) -> None:
 
 
 def test_load_config_handles_configerror_exceptions(
-    runner: CliRunner, tmpdir: LocalPath, caplog: LogCaptureFixture
+    runner: CliRunner, tmp_path: Path, caplog: LogCaptureFixture
 ) -> None:
     """
     Given: A wrong configuration file.
     When: CLI is initialized
     Then: The ConfigError exception is gracefully handled.
     """
-    config_file = tmpdir.join("config.yaml")  # type: ignore
-    config_file.write("[ invalid yaml")
+    config_file = tmp_path / "config.yaml"
+    config_file.write_text("[ invalid yaml")
 
     result = runner.invoke(cli, ["-c", str(config_file), "null"])
 
