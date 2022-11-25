@@ -37,7 +37,7 @@ jobs:
         # time testing in this environment.
         # https://github.com/lyz-code/mkdocs-newsletter/actions/runs/3548202587/jobs/5959150030
       - name: Test linters
-        run: if [[ ${{ matrix.python-version }} != '3.7' ]];then make lint; fi
+        run: {% raw %}if [[ ${{ matrix.python-version }} != '3.7' ]];then make lint; fi{% endraw %}
       - name: Test type checkers
         run: make mypy
         # 3.7 is giving me some issues with flake8 and importlib-metadata, until
@@ -45,7 +45,7 @@ jobs:
         # time testing in this environment.
         # https://github.com/lyz-code/mkdocs-newsletter/actions/runs/3548202587/jobs/5959150030
       - name: Test security
-        run: if [[ ${{ matrix.python-version }} != '3.7' ]];then make security; fi
+        run: {% raw %}if [[ ${{ matrix.python-version }} != '3.7' ]];then make security; fi{% endraw %}
       - name: Test with pytest
         run: make test
       - name: Upload Coverage
