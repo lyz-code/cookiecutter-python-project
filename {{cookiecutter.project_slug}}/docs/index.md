@@ -66,8 +66,8 @@ a contribution to *{{ cookiecutter.project_slug }}*, see [Contributing to
 
 ## Donations
 
-<noscript><a href="https://liberapay.com/Lyz/donate"><img alt="Donate using
-Liberapay" src="https://liberapay.com/assets/widgets/donate.svg"></a></noscript>
+<a href="https://liberapay.com/Lyz/donate"><img alt="Donate using
+Liberapay" src="https://liberapay.com/assets/widgets/donate.svg"></a>
 or
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/T6T3GP0V8)
 
