@@ -46,6 +46,7 @@ format:
 
 	$(isort)
 	$(black)
+	autoimport .
 
 	@echo ""
 
