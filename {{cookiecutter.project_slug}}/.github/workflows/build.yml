@@ -9,7 +9,7 @@ on:  # yamllint disable-line rule:truthy
 
 jobs:
   PyPI:
-    name: Build and publish Python distributions to TestPyPI
+    name: Build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
@@ -19,12 +19,6 @@ jobs:
           python-version: 3.9
       - name: Build package
         run: make build-package
-      - name: Publish distribution to Test PyPI
-        uses: pypa/gh-action-pypi-publish@master
-        with:
-          password: {% raw %}${{ secrets.test_pypi_password }}{% endraw %}
-          repository_url: https://test.pypi.org/legacy/
-          skip_existing: true
   Documentation:
     runs-on: ubuntu-latest
     steps:
@@ -45,5 +39,5 @@ jobs:
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
-          deploy_key: {% raw %}${{ secrets.ACTIONS_DEPLOY_KEY }}{% endraw %}
+          deploy_key: {% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}
           publish_dir: ./site
